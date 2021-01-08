@@ -13,7 +13,7 @@ Outputs:
 	- Gearbox Controller (For Configuration And Stuff)
 	- Website (Live Data)
 	- USB Stick (All Data)
-Functions:
+Complicated Functions:
 	AI Camera + Arduino Module:
 		- Arduino Selects Huskylens Algorithm On Startup
 		- Huskylens Sends Pixel Co-ordinates For Target
@@ -23,6 +23,8 @@ Functions:
 		- Arduino Interprets Distance Data And Ignores Garbage Values
 	Gearbox Controller:
 		- Arduino To Keep Motor RPM In A RPM Range And Transmit Data
+	Steering Input:
+		- Arduino Code With Optic Sensors And Disk To Calculate How Far Steering Has Been Turned
 	Raspberry PI:
 		- Get Data(PI Camera, Angle To Steer, Distance From Object, Switch Board Data, RPM Data, Temperature Data, G-Force Data, GPS Data, User Inputs) and save to file
 		- Calculates If It Should Brake With Distance From Object (How Fast It Is Approaching)
