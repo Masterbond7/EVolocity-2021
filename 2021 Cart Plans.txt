@@ -1,0 +1,33 @@
+Inputs:
+	- AI Camera + Arduino Module
+	- Distance Sensors + Arduino Module
+	- Switch Board (On/Off Switch, Manual/Auto Switch, Mode Switch)
+	- Gearbox Controller (RPM Sensors)
+	- Temperature Sensors + G-Force Sensors Arduino Module
+	- GPS Module
+	- User Inputs (Steering, Accelerator, Brakes)
+	- Current Sensor
+	- PI Camera
+Outputs:
+	- Movement Controller (Steering, Accelerator, Brakes)
+	- Gearbox Controller (For Configuration And Stuff)
+	- Website (Live Data)
+	- USB Stick (All Data)
+Functions:
+	AI Camera + Arduino Module:
+		- Arduino Selects Huskylens Algorithm On Startup
+		- Huskylens Sends Pixel Co-ordinates For Target
+		- Arduino Interprets Data And Converts To Angle For Steering
+	Distance Sensors + Arduino Module:
+		- Ultra-Sonic Sensors Send Distance Data To Arduino
+		- Arduino Interprets Distance Data And Ignores Garbage Values
+	Gearbox Controller:
+		- Arduino To Keep Motor RPM In A RPM Range And Transmit Data
+	Raspberry PI:
+		- Get Data(PI Camera, Angle To Steer, Distance From Object, Switch Board Data, RPM Data, Temperature Data, G-Force Data, GPS Data, User Inputs) and save to file
+		- Calculates If It Should Brake With Distance From Object (How Fast It Is Approaching)
+		- Send Data(Angle To Steer, Should Brake, User Inputs) to Movement Controller
+		- Send Data(Data For Which Mode The Car Is In) to Gearbox Controller (RPM Data Comes From The Controller)
+		- Send Data(PI Camera, Distance Sensors, Switch Board Data, RPM Sensors(Speed), Temperature Sensors, G-Force, GPS, User Inputs, Current Sensor) to web
+		- Send Data(PI Camera, Distance Sensors, Switch Board Data, RPM Sensors, Temperature Sensors, G-Force, GPS, User Inputs, Current Sensor) to USB
+
