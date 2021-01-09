@@ -18,11 +18,13 @@ Complicated Functions:
 		- Arduino Selects Huskylens Algorithm On Startup
 		- Huskylens Sends Pixel Co-ordinates For Target
 		- Arduino Interprets Data And Converts To Angle For Steering
+		- Arduino Rotates Huskylens On Serveo To Face Target
 	Distance Sensors + Arduino Module:
 		- Ultra-Sonic Sensors Send Distance Data To Arduino
 		- Arduino Interprets Distance Data And Ignores Garbage Values
 	Gearbox Controller:
 		- Arduino To Keep Motor RPM In A RPM Range And Transmit Data
+		- Be Able To Receive Data From PI To Change Variables In Code
 	Steering Input:
 		- Arduino Code With Optic Sensors And Disk To Calculate How Far Steering Has Been Turned
 	Raspberry PI:
@@ -32,4 +34,3 @@ Complicated Functions:
 		- Send Data(Data For Which Mode The Car Is In) to Gearbox Controller (RPM Data Comes From The Controller)
 		- Send Data(PI Camera, Distance Sensors, Switch Board Data, RPM Sensors(Speed), Temperature Sensors, G-Force, GPS, User Inputs, Current Sensor) to web
 		- Send Data(PI Camera, Distance Sensors, Switch Board Data, RPM Sensors, Temperature Sensors, G-Force, GPS, User Inputs, Current Sensor) to USB
-
