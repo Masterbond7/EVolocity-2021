@@ -93,6 +93,38 @@ while True:
             usr_wheel = int(dissected_vars[0])
             usr_accel = int(dissected_vars[1])
             usr_brake = int(dissected_vars[2])
+
+
+        # Save Data
+        save_file = open("save_data.txt", "w")
+        save_file.write("steering_correction:"+str(steering_correction)+"\n")
+        save_file.write("distance_value:"+str(distance_value)+"\n")
+        save_file.write("cart_on:"+str(cart_on)+"\n")
+        save_file.write("cart_auto:"+str(cart_auto)+"\n")
+        save_file.write("cart_mode:"+str(cart_mode)+"\n")
+        save_file.write("rpm_motor:"+str(rpm_motor)+"\n")
+        save_file.write("rpm_cvt_out:"+str(rpm_cvt_out)+"\n")
+        save_file.write("rpm_clutch_out:"+str(rpm_clutch_out)+"\n")
+        save_file.write("aux_temp_motor:"+str(aux_temp_motor)+"\n")
+        save_file.write("aux_temp_bat_1:"+str(aux_temp_bat_1)+"\n")
+        save_file.write("aux_temp_bat_2:"+str(aux_temp_bat_2)+"\n")
+        save_file.write("aux_temp_fuse:"+str(aux_temp_fuse)+"\n")
+        save_file.write("aux_temp_motor_cont:"+str(aux_temp_motor_cont)+"\n")
+        save_file.write("aux_temp_brake_FL:"+str(aux_temp_brake_FL)+"\n")
+        save_file.write("aux_temp_brake_FR:"+str(aux_temp_brake_FR)+"\n")
+        save_file.write("aux_temp_brake_BL:"+str(aux_temp_brake_BL)+"\n")
+        save_file.write("aux_temp_brake_BR:"+str(aux_temp_brake_BR)+"\n")
+        save_file.write("aux_temp_rpi:"+str(aux_temp_rpi)+"\n")
+        save_file.write("aux_cur_bat:"+str(aux_cur_bat)+"\n")
+        save_file.write("aux_gps_lon:"+str(aux_gps_lon)+"\n")
+        save_file.write("aux_gps_lat:"+str(aux_gps_lat)+"\n")
+        save_file.write("aux_g_force_x:"+str(aux_g_force_x)+"\n")
+        save_file.write("aux_g_force_y:"+str(aux_g_force_y)+"\n")
+        save_file.write("aux_g_force_z:"+str(aux_g_force_z)+"\n")
+        save_file.write("usr_wheel:"+str(usr_wheel)+"\n")
+        save_file.write("usr_accel:"+str(usr_accel)+"\n")
+        save_file.write("usr_brake:"+str(usr_brake)+"\n")
+        save_file.close()
         
         
         # Reset Arduino Input Variable
