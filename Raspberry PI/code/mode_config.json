@@ -1,0 +1,17 @@
+{"mode":[
+	{
+		"modeName":"ECO",
+		"minRPM": 1,
+		"maxRPM": 2
+	},
+	{ 
+		"modeName":"SPORT",
+		"minRPM": 3,
+		"maxRPM": 4
+	},
+	{
+		"modeName":"AUTO",
+		"minRPM": 5,
+		"maxRPM": 6
+	}
+]}
