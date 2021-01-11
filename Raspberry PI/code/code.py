@@ -1,3 +1,12 @@
+# Getting Ready To Load From Dependencies Folder
+import sys
+sys.path.append('../')
+
+
+# Importing Libs
+from dependencies import json
+
+
 # Initializing Variables
 ard_input = "|"
 
@@ -40,6 +49,7 @@ usr_wheel = 0
 usr_accel = 0
 usr_brake = 0
 
+
 # Main Loop
 while True:
 
@@ -62,6 +72,19 @@ while True:
             cart_on = int(dissected_vars[0])
             cart_auto = int(dissected_vars[1])
             cart_mode = int(dissected_vars[2])
+            
+            # Reading Mode Data
+            mode_data_file = open('mode_config.json', 'r')
+            mode_data = json.load(mode_data_file)
+            mode_data = mode_data["mode"]
+
+            # Giving Gearbox New RPM Ranges
+            try:
+                gbox_minRPM = mode_data[cart_mode]['minRPM']
+                gbox_maxRPM = mode_data[cart_mode]['maxRPM']
+                print("GBOX|{newMin},{newMax}".format(newMin=gbox_minRPM, newMax=gbox_maxRPM))
+            except:
+                print("Invalid mode. Mode out of range")
 
         # Gearbox Controller
         if dissected_ard_input[0] == "GBOX":
