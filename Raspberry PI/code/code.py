@@ -2,10 +2,13 @@
 import sys
 sys.path.append('../')
 
-
 # Importing Libs
 from dependencies import json
 
+
+# Initializing Functions
+def updateMovementController():
+    print("MVMNT|{steer},{accel},{brake}".format(steer=usr_wheel, accel=usr_accel, brake=usr_brake))
 
 # Initializing Variables
 ard_input = "|"
@@ -116,6 +119,7 @@ while True:
             usr_wheel = int(dissected_vars[0])
             usr_accel = int(dissected_vars[1])
             usr_brake = int(dissected_vars[2])
+            updateMovementController()
 
 
         # Save Data
