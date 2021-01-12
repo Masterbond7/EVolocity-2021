@@ -1,7 +1,6 @@
 # Importing Libs
 import json
 from datetime import datetime
-import flask
 
 
 # Initializing Functions
