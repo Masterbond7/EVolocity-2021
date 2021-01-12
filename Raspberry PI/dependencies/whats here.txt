@@ -1,3 +1,0 @@
-- json
-- flask (click, itsdangerous, jinja2(markupsafe), werkzeug)
-- cv2 (numpy)
