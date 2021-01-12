@@ -1,9 +1,5 @@
-# Getting Ready To Load From Dependencies Folder
-import sys
-sys.path.append('../')
-
 # Importing Libs
-mport json
+import json
 from datetime import datetime
 import flask
 
