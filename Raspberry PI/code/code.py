@@ -1,10 +1,6 @@
-# Getting Ready To Load From Dependencies Folder
-import sys
-sys.path.append('../')
-
 # Importing Libs
-from dependencies import json
-from dependencies.datetime import datetime
+import json
+from datetime import datetime
 
 
 # Initializing Functions
