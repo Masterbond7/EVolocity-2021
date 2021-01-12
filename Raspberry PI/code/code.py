@@ -4,6 +4,7 @@ sys.path.append('../')
 
 # Importing Libs
 from dependencies import json
+from dependencies.datetime import datetime
 
 
 # Initializing Functions
@@ -12,6 +13,7 @@ def updateMovementController():
 
 # Initializing Variables
 ard_input = "|"
+started_datetime = datetime.now()
 
 # AI Camera
 steering_correction = 0
@@ -152,6 +154,36 @@ while True:
         save_file.write("usr_accel:"+str(usr_accel)+"\n")
         save_file.write("usr_brake:"+str(usr_brake)+"\n")
         save_file.close()
+        
+        log_file = open("log_file_{datetime}.txt".format(datetime=started_datetime.strftime("%d-%b-%Y-%H.%M.%S")), 'a')
+        log_file.write(str(steering_correction)+",")
+        log_file.write(str(distance_value)+",")
+        log_file.write(str(cart_on)+",")
+        log_file.write(str(cart_auto)+",")
+        log_file.write(str(cart_mode)+",")
+        log_file.write(str(rpm_motor)+",")
+        log_file.write(str(rpm_cvt_out)+",")
+        log_file.write(str(rpm_clutch_out)+",")
+        log_file.write(str(aux_temp_motor)+",")
+        log_file.write(str(aux_temp_bat_1)+",")
+        log_file.write(str(aux_temp_bat_2)+",")
+        log_file.write(str(aux_temp_fuse)+",")
+        log_file.write(str(aux_temp_motor_cont)+",")
+        log_file.write(str(aux_temp_brake_FL)+",")
+        log_file.write(str(aux_temp_brake_FR)+",")
+        log_file.write(str(aux_temp_brake_BL)+",")
+        log_file.write(str(aux_temp_brake_BR)+",")
+        log_file.write(str(aux_temp_rpi)+",")
+        log_file.write(str(aux_cur_bat)+",")
+        log_file.write(str(aux_gps_lon)+",")
+        log_file.write(str(aux_gps_lat)+",")
+        log_file.write(str(aux_g_force_x)+",")
+        log_file.write(str(aux_g_force_y)+",")
+        log_file.write(str(aux_g_force_z)+",")
+        log_file.write(str(usr_wheel)+",")
+        log_file.write(str(usr_accel)+",")
+        log_file.write(str(usr_brake)+"\n")
+        log_file.close()
         
         
         # Reset Arduino Input Variable
