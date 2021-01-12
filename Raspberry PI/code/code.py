@@ -3,9 +3,9 @@ import sys
 sys.path.append('../')
 
 # Importing Libs
-from dependencies import json
-from dependencies.datetime import datetime
-from dependencies import flask
+mport json
+from datetime import datetime
+import flask
 
 
 # Initializing Functions
