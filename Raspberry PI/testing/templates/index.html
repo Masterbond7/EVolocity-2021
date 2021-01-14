@@ -1,9 +1,13 @@
  <html>
  <head>
-   <title>Evelocity 2021 Cart Website</title>
-   <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/mainpage.css') }}">
+    <title>Evelocity 2021 Cart Website</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/mainpage.css') }}">
+    <script src="https://unpkg.com/htmx.org@1.1.0"></script>
  </head>
  <body>
-   <img src="{{ url_for('video_feed') }}">
+    <img src="{{ url_for('video_feed') }}">
+    <h1 hx-get="/text_data" hx-trigger="every 1s">
+
+    </h1>
  </body>
 </html>
