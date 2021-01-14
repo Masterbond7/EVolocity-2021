@@ -1,16 +1,11 @@
 # Importing Modules
-from flask import Flask, render_template, Response
+from flask import Flask, render_template, Response, send_file
 import cv2
 from threading import Thread
 
 # Initializing Program Stuff
 app = Flask(__name__)
 vc = cv2.VideoCapture(0)
-
-# Initializing Functions
-def hmmm():
-    while True: yield render_template("index.html", data=open("test.txt", 'r').read())
-
 
 
 # Creating Flask
@@ -32,5 +27,10 @@ def video_feed():
 @app.route('/text_data')
 def text_data():
     return open("test.txt", 'r').read()
+
+@app.route('/map_image')
+def map_image():
+    return send_file("image.jpg", mimetype='image/jpeg')
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, threaded=True)

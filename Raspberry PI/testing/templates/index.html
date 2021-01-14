@@ -6,8 +6,7 @@
  </head>
  <body>
     <img src="{{ url_for('video_feed') }}">
-    <h1 hx-get="/text_data" hx-trigger="every 1s">
-
-    </h1>
+    <img src="{{ url_for('map_image') }}" hx-trigger="every 2s"></img>
+    <h1 hx-get="{{ url_for('text_data') }}" hx-trigger="every 2s"></h1>
  </body>
 </html>
