@@ -22,10 +22,6 @@ green = ImageTk.PhotoImage(Image.open("fire.png"))
 greenLabel = Label(image=green, bg="black")
 greenLabel.place(x = 650,y = 350)
 
-gmap = ImageTk.PhotoImage(Image.open("map.png"))
-gmapLabel = Label(image=gmap, bg="black")
-gmapLabel.place(x = 0,y = 0)
-
 def something():
     imgValue = random.randint(0,1)
     speedValue = random.randint(1, 10)
