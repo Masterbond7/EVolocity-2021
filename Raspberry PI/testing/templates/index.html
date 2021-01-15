@@ -6,7 +6,15 @@
  </head>
  <body>
     <img src="{{ url_for('video_feed') }}">
-    <img src="{{ url_for('map_image') }}" hx-trigger="every 2s"></img>
-    <h1 hx-get="{{ url_for('text_data') }}" hx-trigger="every 2s"></h1>
+    <img id="newImage" src="/map_image"></img>
+    <h1 hx-get="{{ url_for('text_data') }}" hx-trigger="every 1s"></h1>
+
+    <script>
+	    	function reload(){
+	    		document.getElementById("newImage").src = "/map_image?" + new Date().getTime();
+	    		setTimeout(reload, 1000);
+	    	}
+	    	reload();
+    </script>
  </body>
 </html>

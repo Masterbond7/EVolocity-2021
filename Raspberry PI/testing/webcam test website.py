@@ -11,7 +11,7 @@ vc = cv2.VideoCapture(0)
 # Creating Flask
 @app.route('/')
 def index():
-    return render_template("index.html", data=open("test.txt", 'r').read())
+    return render_template("index.html")
 def gen():
     while True:
         rval, frame = vc.read()
@@ -30,7 +30,11 @@ def text_data():
 
 @app.route('/map_image')
 def map_image():
-    return send_file("image.jpg", mimetype='image/jpeg')
+    while True:
+        return send_file("image.jpg")
+"""def gen_map_image():
+    while True:
+        yield send_file("image.jpg")"""
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, threaded=True)
