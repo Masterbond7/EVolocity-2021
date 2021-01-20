@@ -7,11 +7,13 @@ from threading import Thread
 app = Flask(__name__)
 vc = cv2.VideoCapture(0)
 
+gps_lon = -12
+gps_lat = 20
 
 # Creating Flask
 @app.route('/')
 def index():
-    return render_template("index.html")
+    return render_template("index.html", gps_pos=(str(gps_lon)+","+str(gps_lat)))
 def gen():
     while True:
         rval, frame = vc.read()
@@ -35,6 +37,10 @@ def map_image():
 """def gen_map_image():
     while True:
         yield send_file("image.jpg")"""
+
+@app.route("/gps_coords")
+def gps_coords():
+    return open("gps.txt", 'r').read()
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, threaded=True)

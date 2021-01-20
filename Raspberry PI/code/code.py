@@ -21,6 +21,7 @@ distance_value = 0
 cart_on = 0
 cart_auto = 0
 cart_mode = 0 # 0 = Torque, 1 = Economy
+cart_mode_txt = "ECO"
 
 # Gearbox Controller
 rpm_motor = 0
@@ -79,8 +80,9 @@ while True:
             mode_data = json.load(mode_data_file)
             mode_data = mode_data["mode"]
 
-            # Giving Gearbox New RPM Ranges
+            # Giving Gearbox New RPM Ranges And Getting Mode's name
             try:
+                cart_mode_txt = mode_data[cart_mode]['modeName']
                 gbox_minRPM = mode_data[cart_mode]['minRPM']
                 gbox_maxRPM = mode_data[cart_mode]['maxRPM']
                 print("GBOX|{newMin},{newMax}".format(newMin=gbox_minRPM, newMax=gbox_maxRPM))
@@ -122,33 +124,33 @@ while True:
 
         # Save Data
         save_file = open("save_data.txt", "w")
-        save_file.write("steering_correction:"+str(steering_correction)+"\n")
-        save_file.write("distance_value:"+str(distance_value)+"\n")
-        save_file.write("cart_on:"+str(cart_on)+"\n")
-        save_file.write("cart_auto:"+str(cart_auto)+"\n")
-        save_file.write("cart_mode:"+str(cart_mode)+"\n")
-        save_file.write("rpm_motor:"+str(rpm_motor)+"\n")
-        save_file.write("rpm_cvt_out:"+str(rpm_cvt_out)+"\n")
-        save_file.write("rpm_clutch_out:"+str(rpm_clutch_out)+"\n")
-        save_file.write("aux_temp_motor:"+str(aux_temp_motor)+"\n")
-        save_file.write("aux_temp_bat_1:"+str(aux_temp_bat_1)+"\n")
-        save_file.write("aux_temp_bat_2:"+str(aux_temp_bat_2)+"\n")
-        save_file.write("aux_temp_fuse:"+str(aux_temp_fuse)+"\n")
-        save_file.write("aux_temp_motor_cont:"+str(aux_temp_motor_cont)+"\n")
-        save_file.write("aux_temp_brake_FL:"+str(aux_temp_brake_FL)+"\n")
-        save_file.write("aux_temp_brake_FR:"+str(aux_temp_brake_FR)+"\n")
-        save_file.write("aux_temp_brake_BL:"+str(aux_temp_brake_BL)+"\n")
-        save_file.write("aux_temp_brake_BR:"+str(aux_temp_brake_BR)+"\n")
-        save_file.write("aux_temp_rpi:"+str(aux_temp_rpi)+"\n")
-        save_file.write("aux_cur_bat:"+str(aux_cur_bat)+"\n")
-        save_file.write("aux_gps_lon:"+str(aux_gps_lon)+"\n")
-        save_file.write("aux_gps_lat:"+str(aux_gps_lat)+"\n")
-        save_file.write("aux_g_force_x:"+str(aux_g_force_x)+"\n")
-        save_file.write("aux_g_force_y:"+str(aux_g_force_y)+"\n")
-        save_file.write("aux_g_force_z:"+str(aux_g_force_z)+"\n")
-        save_file.write("usr_wheel:"+str(usr_wheel)+"\n")
-        save_file.write("usr_accel:"+str(usr_accel)+"\n")
-        save_file.write("usr_brake:"+str(usr_brake)+"\n")
+        save_file.write("AI wheel adjustment: "+str(steering_correction)+"<br>")
+        save_file.write("Distance from object: "+str(distance_value)+"<br>")
+        save_file.write("Motor powered: "+str(bool(cart_on))+"<br>")
+        save_file.write("Autonomous driver: "+str(cart_auto)+"<br>")
+        save_file.write("Cart mode: "+cart_mode_txt+"<br>")
+        save_file.write("Motor RPM: "+str(rpm_motor)+"<br>")
+        save_file.write("Gearbox RPM: "+str(rpm_cvt_out)+"<br>")
+        save_file.write("Clutch RPM: "+str(rpm_clutch_out)+"<br>")
+        save_file.write("Motor temperature: "+str(aux_temp_motor)+"<br>")
+        save_file.write("Battery pack #1 temperature: "+str(aux_temp_bat_1)+"<br>")
+        save_file.write("Battery pack #2 temperature: "+str(aux_temp_bat_2)+"<br>")
+        save_file.write("Fuse temperature: "+str(aux_temp_fuse)+"<br>")
+        save_file.write("Motor controller temperature: "+str(aux_temp_motor_cont)+"<br>")
+        save_file.write("Front-Left brake temperature: "+str(aux_temp_brake_FL)+"<br>")
+        save_file.write("Front-Right brake temperature: "+str(aux_temp_brake_FR)+"<br>")
+        save_file.write("Back-Left brake temperature: "+str(aux_temp_brake_BL)+"<br>")
+        save_file.write("Back-Right brake temperature: "+str(aux_temp_brake_BR)+"<br>")
+        save_file.write("CPU temperature: "+str(aux_temp_rpi)+"<br>")
+        save_file.write("Power Consumption: "+str(aux_cur_bat)+"<br>")
+        save_file.write("GPS Longitude: "+str(aux_gps_lon)+"<br>")
+        save_file.write("GPS Latitude: "+str(aux_gps_lat)+"<br>")
+        save_file.write("X-Axis G-Force: "+str(aux_g_force_x)+"<br>")
+        save_file.write("Y-Axis G-Force: "+str(aux_g_force_y)+"<br>")
+        save_file.write("Z-Axis G-Force: "+str(aux_g_force_z)+"<br>")
+        save_file.write("Steering wheel position: "+str(usr_wheel)+"<br>")
+        save_file.write("Throttle position: "+str(usr_accel)+"<br>")
+        save_file.write("Brake position: "+str(usr_brake)+"<br>")
         save_file.close()
         
         log_file = open("log_file_{datetime}.txt".format(datetime=started_datetime.strftime("%d-%b-%Y-%H.%M.%S")), 'a')
