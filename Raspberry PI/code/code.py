@@ -1,11 +1,45 @@
 # Importing Libs
 import json
 from datetime import datetime
+from flask import Flask, render_template, Response, send_file
+import cv2
+from threading import Thread
 
 
 # Initializing Functions
 def updateMovementController():
     print("MVMNT|{steer},{accel},{brake}".format(steer=usr_wheel, accel=usr_accel, brake=usr_brake))
+def runFlask():
+    app.run(host='0.0.0.0', debug=False, threaded=True)
+
+# Initializing Camera
+vc = cv2.VideoCapture(0)
+
+# Initializing Flask
+app = Flask(__name__)
+
+# Creating Flask
+@app.route('/')
+def index():
+    return render_template("index.html")
+        
+@app.route('/video_feed')
+def video_feed():
+    return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
+def gen():
+    while True:
+        rval, frame = vc.read()
+        byteArray = cv2.imencode('.jpg', frame)[1].tobytes()
+        yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + byteArray + b'\r\n')
+
+@app.route('/text_data')
+def text_data():
+    return open("save_data.txt", 'r').read()
+
+@app.route("/gps_coords")
+def gps_coords():
+    return str(aux_gps_lon)+","+str(aux_gps_lat)  ##open("gps.txt", 'r').read()
+
 
 # Initializing Variables
 ard_input = "|"
@@ -52,9 +86,13 @@ usr_accel = 0
 usr_brake = 0
 
 
+# Starting Flask
+flaskThread = Thread(target=runFlask)
+flaskThread.start()
+
+
 # Main Loop
 while True:
-
     # Main Code Loop
     try:
         # Handle Arduino Input
