@@ -1,6 +1,6 @@
 {"mode":[
 	{
-		"modeName":"ECO",
+		"modeName":"AUTO",
 		"minRPM": 1,
 		"maxRPM": 2
 	},
@@ -10,7 +10,7 @@
 		"maxRPM": 4
 	},
 	{
-		"modeName":"AUTO",
+		"modeName":"ECONOMY",
 		"minRPM": 5,
 		"maxRPM": 6
 	}

@@ -1,0 +1,23 @@
+ <html>
+ <head>
+    <title>Evelocity 2021 Cart Website</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/mainpage.css') }}">
+    <script src="https://unpkg.com/htmx.org@1.1.0"></script>
+ </head>
+ <body>
+    <img src="{{ url_for('video_feed') }}">
+    <iframe width="640" height="480" id="gmap_canvas" src="https://maps.google.com/maps?q=-12.3543,20&t=k&z=15&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+    <h1 hx-get="{{ url_for('text_data') }}" hx-trigger="every 2s"></h1>
+    <h1 hx-get="{{ url_for('gps_coords') }}" hx-trigger="every 2s" id="coords" style="display: none;"></h1>
+
+    <script>
+	    	function reload(){
+	    		var coords = document.getElementById("coords").textContent;
+	    		document.getElementById("gmap_canvas").src = "https://maps.google.com/maps?q="+(coords)+"&t=k&z=17&ie=UTF8&iwloc=&output=embed"
+
+	    		setTimeout(reload, 10000);
+	    	}
+	    	reload();
+    </script>
+ </body>
+</html>
