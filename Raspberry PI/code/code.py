@@ -34,7 +34,35 @@ def gen():
 
 @app.route('/text_data')
 def text_data():
-    return open("save_data.txt", 'r').read()
+    return "AI wheel adjustment: "+str(steering_correction)+"<br>"+          \
+           "Distance from object: "+str(distance_value)+"<br>"+              \
+           "Motor powered: "+str(bool(cart_on))+"<br>"+                      \
+           "Autonomous driver: "+str(bool(cart_auto))+"<br>"+                \
+           "Cart mode: "+cart_mode_txt+"/"+str(cart_mode)+"<br>"+            \
+           "Motor RPM: "+str(rpm_motor)+"<br>"+                              \
+           "Gearbox RPM: "+str(rpm_cvt_out)+"<br>"+                          \
+           "Clutch RPM: "+str(rpm_clutch_out)+"<br>"+                        \
+           "Motor temperature: "+str(aux_temp_motor)+"<br>"+                 \
+           "Battery pack #1 temperature: "+str(aux_temp_bat_1)+"<br>"+       \
+           "Battery pack #2 temperature: "+str(aux_temp_bat_2)+"<br>"+       \
+           "Fuse temperature: "+str(aux_temp_fuse)+"<br>"+                   \
+           "Motor controller temperature: "+str(aux_temp_motor_cont)+"<br>"+ \
+           "Front-Left brake temperature: "+str(aux_temp_brake_FL)+"<br>"+   \
+           "Front-Right brake temperature: "+str(aux_temp_brake_FR)+"<br>"+  \
+           "Back-Left brake temperature: "+str(aux_temp_brake_BL)+"<br>"+    \
+           "Back-Right brake temperature: "+str(aux_temp_brake_BR)+"<br>"+   \
+           "CPU temperature: "+str(aux_temp_rpi)+"<br>"+                     \
+           "Power Consumption: "+str(aux_cur_bat)+"<br>"+                    \
+           "GPS Longitude: "+str(aux_gps_lon)+"<br>"+                        \
+           "GPS Latitude: "+str(aux_gps_lat)+"<br>"+                         \
+           "X-Axis G-Force: "+str(aux_g_force_x)+"<br>"+                     \
+           "Y-Axis G-Force: "+str(aux_g_force_y)+"<br>"+                     \
+           "Z-Axis G-Force: "+str(aux_g_force_z)+"<br>"+                     \
+           "Steering wheel position: "+str(usr_wheel)+"<br>"+                \
+           "Throttle position: "+str(usr_accel)+"<br>"+                      \
+           "Brake position: "+str(usr_brake)
+           
+    ##return open("save_data.txt", 'r').read()
 
 @app.route("/gps_coords")
 def gps_coords():
@@ -54,8 +82,8 @@ distance_value = 0
 # Switch Board
 cart_on = 0
 cart_auto = 0
-cart_mode = 0 # 0 = Torque, 1 = Economy
-cart_mode_txt = "ECO"
+cart_mode = 1 # 0 = Auto, 1 = Sport, 2 = Economy
+cart_mode_txt = "SPORT"
 
 # Gearbox Controller
 rpm_motor = 0
@@ -112,6 +140,9 @@ while True:
             cart_on = int(dissected_vars[0])
             cart_auto = int(dissected_vars[1])
             cart_mode = int(dissected_vars[2])
+
+            # Logic To Override Mode To AUTO If AUTO Switch Is Flicked (MODE OVERRIDE)
+            if cart_auto == 1: cart_mode = 0
             
             # Reading Mode Data
             mode_data_file = open('mode_config.json', 'r')
@@ -126,6 +157,7 @@ while True:
                 print("GBOX|{newMin},{newMax}".format(newMin=gbox_minRPM, newMax=gbox_maxRPM))
             except:
                 print("Invalid mode. Mode out of range")
+
 
         # Gearbox Controller
         if dissected_ard_input[0] == "GBOX":
@@ -161,36 +193,6 @@ while True:
 
 
         # Save Data
-        save_file = open("save_data.txt", "w")
-        save_file.write("AI wheel adjustment: "+str(steering_correction)+"<br>")
-        save_file.write("Distance from object: "+str(distance_value)+"<br>")
-        save_file.write("Motor powered: "+str(bool(cart_on))+"<br>")
-        save_file.write("Autonomous driver: "+str(cart_auto)+"<br>")
-        save_file.write("Cart mode: "+cart_mode_txt+"<br>")
-        save_file.write("Motor RPM: "+str(rpm_motor)+"<br>")
-        save_file.write("Gearbox RPM: "+str(rpm_cvt_out)+"<br>")
-        save_file.write("Clutch RPM: "+str(rpm_clutch_out)+"<br>")
-        save_file.write("Motor temperature: "+str(aux_temp_motor)+"<br>")
-        save_file.write("Battery pack #1 temperature: "+str(aux_temp_bat_1)+"<br>")
-        save_file.write("Battery pack #2 temperature: "+str(aux_temp_bat_2)+"<br>")
-        save_file.write("Fuse temperature: "+str(aux_temp_fuse)+"<br>")
-        save_file.write("Motor controller temperature: "+str(aux_temp_motor_cont)+"<br>")
-        save_file.write("Front-Left brake temperature: "+str(aux_temp_brake_FL)+"<br>")
-        save_file.write("Front-Right brake temperature: "+str(aux_temp_brake_FR)+"<br>")
-        save_file.write("Back-Left brake temperature: "+str(aux_temp_brake_BL)+"<br>")
-        save_file.write("Back-Right brake temperature: "+str(aux_temp_brake_BR)+"<br>")
-        save_file.write("CPU temperature: "+str(aux_temp_rpi)+"<br>")
-        save_file.write("Power Consumption: "+str(aux_cur_bat)+"<br>")
-        save_file.write("GPS Longitude: "+str(aux_gps_lon)+"<br>")
-        save_file.write("GPS Latitude: "+str(aux_gps_lat)+"<br>")
-        save_file.write("X-Axis G-Force: "+str(aux_g_force_x)+"<br>")
-        save_file.write("Y-Axis G-Force: "+str(aux_g_force_y)+"<br>")
-        save_file.write("Z-Axis G-Force: "+str(aux_g_force_z)+"<br>")
-        save_file.write("Steering wheel position: "+str(usr_wheel)+"<br>")
-        save_file.write("Throttle position: "+str(usr_accel)+"<br>")
-        save_file.write("Brake position: "+str(usr_brake)+"<br>")
-        save_file.close()
-        
         log_file = open("log_file_{datetime}.txt".format(datetime=started_datetime.strftime("%d-%b-%Y-%H.%M.%S")), 'a')
         log_file.write(str(steering_correction)+",")
         log_file.write(str(distance_value)+",")
