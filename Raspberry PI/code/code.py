@@ -129,11 +129,11 @@ while True:
 
         # AI Camera
         if dissected_ard_input[0] == "AIC":
-            steering_correction = int(dissected_vars[0])
+            steering_correction = float(dissected_vars[0])
             
         # Distance Sensors
         if dissected_ard_input[0] == "DIST":
-            distance_value = int(dissected_vars[0])
+            distance_value = float(dissected_vars[0])
 
         # Switch Board
         if dissected_ard_input[0] == "SWTCH":
@@ -161,34 +161,34 @@ while True:
 
         # Gearbox Controller
         if dissected_ard_input[0] == "GBOX":
-            rpm_motor = int(dissected_vars[0])
-            rpm_cvt_out = int(dissected_vars[1])
-            rpm_clutch_out = int(dissected_vars[2])
+            rpm_motor = float(dissected_vars[0])
+            rpm_cvt_out = float(dissected_vars[1])
+            rpm_clutch_out = float(dissected_vars[2])
 
         # Aux Sensors
         if dissected_ard_input[0] == "AUX":
-            aux_temp_motor = int(dissected_vars[0])
-            aux_temp_bat_1 = int(dissected_vars[1])
-            aux_temp_bat_2 = int(dissected_vars[2])
-            aux_temp_fuse = int(dissected_vars[3])
-            aux_temp_motor_cont = int(dissected_vars[4])
-            aux_temp_brake_FL = int(dissected_vars[5])
-            aux_temp_brake_FR = int(dissected_vars[6])
-            aux_temp_brake_BL = int(dissected_vars[7])
-            aux_temp_brake_BR = int(dissected_vars[8])
-            aux_temp_rpi = int(dissected_vars[9])
-            aux_cur_bat = int(dissected_vars[10])
-            aux_gps_lon = int(dissected_vars[11])
-            aux_gps_lat = int(dissected_vars[12])
-            aux_g_force_x = int(dissected_vars[13])
-            aux_g_force_y = int(dissected_vars[14])
-            aux_g_force_z = int(dissected_vars[15])
+            aux_temp_motor = float(dissected_vars[0])
+            aux_temp_bat_1 = float(dissected_vars[1])
+            aux_temp_bat_2 = float(dissected_vars[2])
+            aux_temp_fuse = float(dissected_vars[3])
+            aux_temp_motor_cont = float(dissected_vars[4])
+            aux_temp_brake_FL = float(dissected_vars[5])
+            aux_temp_brake_FR = float(dissected_vars[6])
+            aux_temp_brake_BL = float(dissected_vars[7])
+            aux_temp_brake_BR = float(dissected_vars[8])
+            aux_temp_rpi = float(dissected_vars[9])
+            aux_cur_bat = float(dissected_vars[10])
+            aux_gps_lon = float(dissected_vars[11])
+            aux_gps_lat = float(dissected_vars[12])
+            aux_g_force_x = float(dissected_vars[13])
+            aux_g_force_y = float(dissected_vars[14])
+            aux_g_force_z = float(dissected_vars[15])
 
         # User Inputs
         if dissected_ard_input[0] == "USR":
-            usr_wheel = int(dissected_vars[0])
-            usr_accel = int(dissected_vars[1])
-            usr_brake = int(dissected_vars[2])
+            usr_wheel = float(dissected_vars[0])
+            usr_accel = float(dissected_vars[1])
+            usr_brake = float(dissected_vars[2])
             updateMovementController()
 
 
