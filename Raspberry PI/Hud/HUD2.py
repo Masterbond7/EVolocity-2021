@@ -7,41 +7,72 @@ root.title('Car Stats')
 root.geometry("800x480")
 root.configure(background='black')
 
-#my_img = ImageTk.PhotoImage(Image.open("engine.jpg"))
-#my_label = Label(image=my_img, bg="black")
-#my_label.place(rely=1.0, relx=1.0, x=0, y=0, anchor=SE)
 
-speed = Label(root, text="Speed: ", font=("Helvetica", 18))
-speed.place(x = 660, y = 150)
+stats = Label(root, fg = "white", bg = "black", text="Speed: ", font=("Helvetica", 18))
+stats.pack(side = LEFT)
 
-engine = ImageTk.PhotoImage(Image.open("weewoo.jpg"))
-engineLabel = Label(image=engine, bg="black")
-engineLabel.place(x = 650, y = 20)
+#####
 
-green = ImageTk.PhotoImage(Image.open("fire.png"))
-greenLabel = Label(image=green, bg="black")
-greenLabel.place(x = 650,y = 350)
+steering_correction=0 #
+distance_value=0 #
+cart_on=0 #
+cart_auto=0
+cart_mode=0 #
+rpm_motor=0 #
+rpm_cvt_out=0
+rpm_clutch_out=0
+aux_temp_motor=0#
+aux_temp_bat_1=0
+aux_temp_bat_2=0
+aux_temp_fuse=0
+aux_temp_motor_cont=0
+aux_temp_brake_FL=0
+aux_temp_brake_FR=0
+aux_temp_brake_BL=0
+aux_temp_brake_BR=0
+aux_temp_rpi=0
+aux_cur_bat=0
+aux_gps_lon=0
+aux_gps_lat=0
+aux_g_force_x=0
+aux_g_force_y=0
+aux_g_force_z=0
+usr_wheel=0
+usr_accel=0 #
+usr_brake=0
+
+#####
+
 
 def something():
-    imgValue = random.randint(0,1)
-    speedValue = random.randint(1, 10)
-    modeValue = random.randint(1, 6)
-    speed.config(fg = "white", bg = "black", text="Speed:\n" + str(speedValue) + "\nMode:\n" + str(modeValue) + ("\nBattery:\n63%"))
+    stats.config(fg = "white", bg = "black",
+    text="Speed: " + str(usr_accel)
+    + "\nPower: " + str(cart_on)
+    + "\nMode: " + str(cart_mode)
+    + "\nBattery: " + "1" + "%"
+    + "\nRPM: " + str(rpm_motor)
+    + "\nSteering Correction: " + str(steering_correction)
+    + "\nDistance Value: " + str(distance_value)
+    + "\nMotor Temperature: " + str(aux_temp_motor)
+    + "\nDistance Value: " + str(distance_value)
+
+    )
     
-        
-
-    root.after(100, something) 
-
-
-
-
-#my_button = Button(root, text="Click Me", command=something)
-#my_button.pack(pady=10)
 
 something()
 
-#def task():
-    
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -50,4 +81,3 @@ something()
 
 
 root.mainloop()
-

@@ -14,13 +14,13 @@ root.configure(background='black')
 speed = Label(root, text="Speed: ", font=("Helvetica", 18))
 speed.place(x = 660, y = 150)
 
-engine = ImageTk.PhotoImage(Image.open("weewoo.jpg"))
-engineLabel = Label(image=engine, bg="black")
-engineLabel.place(x = 650, y = 20)
+weewoo = ImageTk.PhotoImage(Image.open("weewoo.jpg"))
+weewooLabel = Label(image=weewoo, bg="black")
+weewooLabel.place(x = 650, y = 20)
 
-green = ImageTk.PhotoImage(Image.open("fire.png"))
-greenLabel = Label(image=green, bg="black")
-greenLabel.place(x = 650,y = 350)
+fire = ImageTk.PhotoImage(Image.open("fire.png"))
+fireLabel = Label(image=fire, bg="black")
+fireLabel.place(x = 650,y = 350)
 
 gmap = ImageTk.PhotoImage(Image.open("map.png"))
 gmapLabel = Label(image=gmap, bg="black")
@@ -31,10 +31,38 @@ def something():
     speedValue = random.randint(1, 10)
     modeValue = random.randint(1, 6)
     speed.config(fg = "white", bg = "black", text="Speed:\n" + str(speedValue) + "\nMode:\n" + str(modeValue) + ("\nBattery:\n63%"))
-    
-        
 
-    root.after(100, something) 
+    #map
+    #if imgValue == 0:
+        #gmap2 = ImageTk.PhotoImage(Image.open("fire.png"))
+        #gmapLabel.configure(image=gmap2)
+        #gmapLabel.image = gmap2
+    #elif imgValue == 1:
+        #gmap2 = ImageTk.PhotoImage(Image.open("map.png"))
+        #gmapLabel.configure(image=gmap2)
+        #gmapLabel.image = gmap2
+
+    #fire
+    if imgValue == 0:
+        fire2 = ImageTk.PhotoImage(Image.open("fire.png"))
+        fireLabel.configure(image=fire2)
+        fireLabel.image = fire2
+    elif imgValue == 1:
+        fire2 = ImageTk.PhotoImage(Image.open("fire2.png"))
+        fireLabel.configure(image=fire2)
+        fireLabel.image = fire2
+
+    #weewoo
+    if imgValue == 0:
+        weewoo2 = ImageTk.PhotoImage(Image.open("weewoo.jpg"))
+        weewooLabel.configure(image=weewoo2)
+        weewooLabel.image = weewoo2
+    elif imgValue == 1:
+        weewoo2 = ImageTk.PhotoImage(Image.open("weewoo2.jpg"))
+        weewooLabel.configure(image=weewoo2)
+        weewooLabel.image = weewoo2
+
+    root.after(1000, something) 
 
 
 
