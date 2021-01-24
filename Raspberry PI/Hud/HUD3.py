@@ -3,7 +3,6 @@ import random
 from PIL import ImageTk, Image
 
 #1#
-
 def hud1():
     root = Tk()
     root.title('Car Stats')
@@ -36,16 +35,6 @@ def hud1():
         modeValue = random.randint(1, 6)
         speed.config(fg = "white", bg = "black", text="Speed:\n" + str(speedValue) + "\nMode:\n" + str(modeValue) + ("\nBattery:\n63%"))
 
-        #map
-        #if imgValue == 0:
-            #gmap2 = ImageTk.PhotoImage(Image.open("fire.png"))
-            #gmapLabel.configure(image=gmap2)
-            #gmapLabel.image = gmap2
-        #elif imgValue == 1:
-            #gmap2 = ImageTk.PhotoImage(Image.open("map.png"))
-            #gmapLabel.configure(image=gmap2)
-            #gmapLabel.image = gmap2
-
         #fire
         if imgValue == 0:
             fire2 = ImageTk.PhotoImage(Image.open("fire.png"))
@@ -58,9 +47,9 @@ def hud1():
 
         #weewoo
         if imgValue == 0:
-            weewoo2 = ImageTk.PhotoImage(Image.open("weewoo.jpg"))
-            weewooLabel.configure(image=weewoo2)
-            weewooLabel.image = weewoo2
+            weewoo = ImageTk.PhotoImage(Image.open("weewoo.jpg"))
+            weewooLabel.configure(image=weewoo)
+            weewooLabel.image = weewoo
         elif imgValue == 1:
             weewoo2 = ImageTk.PhotoImage(Image.open("weewoo2.jpg"))
             weewooLabel.configure(image=weewoo2)
@@ -68,26 +57,10 @@ def hud1():
 
         root.after(1000, something) 
 
-
-
-
-    
-
     something()
-
-    #def task():
-        
-
-
-
-
-
-
-
+    
     root.mainloop()
-
-#1#
-
+    
 #2#
 def hud2():
     root = Tk()
@@ -142,7 +115,7 @@ def hud2():
     #####
 
 
-    def something():
+    def something2():
         stats.config(fg = "white", bg = "black",
         text="--------------Driving--------------"
         + "\nSpeed: " + str(usr_accel)
