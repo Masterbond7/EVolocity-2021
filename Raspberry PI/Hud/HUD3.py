@@ -50,26 +50,26 @@ def basicHud():
 
         # Temperature Check Light
         if temperatureCheck == 0:
-            temperatureCheckImage = ImageTk.PhotoImage(Image.open("temperatureCheckFalse.png"))
+            temperatureCheckImage = ImageTk.PhotoImage(Image.open("hudImages/temperatureCheckFalse.png"))
             temperatureCheckLight.configure(image=temperatureCheckImage)
             temperatureCheckLight.image = temperatureCheckImage
         elif temperatureCheck == 1:
-            temperatureCheckImage = ImageTk.PhotoImage(Image.open("temperatureCheckTrue.png"))
+            temperatureCheckImage = ImageTk.PhotoImage(Image.open("hudImages/temperatureCheckTrue.png"))
             temperatureCheckLight.configure(image=temperatureCheckImage)
             temperatureCheckLight.image = temperatureCheckImage
 
         # Engine Check Light
         if engineCheck == 0:
-            engineCheckImage = ImageTk.PhotoImage(Image.open("engineCheckFalse.jpg"))
+            engineCheckImage = ImageTk.PhotoImage(Image.open("hudImages/engineCheckFalse.jpg"))
             engineCheckLight.configure(image=engineCheckImage)
             engineCheckLight.image = engineCheckImage
         elif engineCheck == 1:
-            engineCheckImage = ImageTk.PhotoImage(Image.open("engineCheckTrue.jpg"))
+            engineCheckImage = ImageTk.PhotoImage(Image.open("hudImages/engineCheckTrue.jpg"))
             engineCheckLight.configure(image=engineCheckImage)
             engineCheckLight.image = engineCheckImage
 
         # Updating Map Image
-        mapImage = ImageTk.PhotoImage(Image.open("map.png"))
+        mapImage = ImageTk.PhotoImage(Image.open("hudImages/map.png"))
         mapLabel.configure(image=mapImage)
         mapLabel.image=mapImage
 
@@ -88,17 +88,17 @@ def basicHud():
     infoLabel.place(x = 660, y = 150)
 
     # Setting Up Engine Check Light
-    engineCheckImage = ImageTk.PhotoImage(Image.open("engineCheckFalse.jpg"))
+    engineCheckImage = ImageTk.PhotoImage(Image.open("hudImages/engineCheckFalse.jpg"))
     engineCheckLight = Label(image=engineCheckImage, bg="black")
     engineCheckLight.place(x = 650, y = 20)
 
     # Setting Up Temperature Check Light
-    temperatureCheckImage = ImageTk.PhotoImage(Image.open("temperatureCheckFalse.png"))
+    temperatureCheckImage = ImageTk.PhotoImage(Image.open("hudImages/temperatureCheckFalse.png"))
     temperatureCheckLight = Label(image=temperatureCheckImage, bg="black")
     temperatureCheckLight.place(x = 650,y = 350)
 
     # Setting Up Map Image
-    mapImage = ImageTk.PhotoImage(Image.open("map.png"))
+    mapImage = ImageTk.PhotoImage(Image.open("hudImages/map.png"))
     mapLabel = Label(image=mapImage, bg="black")
     mapLabel.place(x=0, y=0)
 
