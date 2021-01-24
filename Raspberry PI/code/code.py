@@ -18,6 +18,8 @@ def runHud():
     while True:
         basicHud()
         detailedHud()
+def run_get_data():
+	get_data()
 def estimate_battery(aux_battery_voltmeter):
     return -99999
 def calculate_speed(wheel_circumference, rpm):
@@ -226,6 +228,122 @@ def detailedHud():
     detailedHudWindow.mainloop()
 
 
+# Getting The Data From The Arduinos And Interpreting It
+def get_data():
+	# Main Loop
+	while True:
+	    # Main Code Loop
+	    try:
+	        # Handle Arduino Input
+	        dissected_ard_input = ard_input.split("|")
+	        dissected_vars = dissected_ard_input[1].split(",")
+
+	        # AI Camera
+	        if dissected_ard_input[0] == "AIC":
+	            steering_correction = float(dissected_vars[0])
+	            
+	        # Distance Sensors
+	        if dissected_ard_input[0] == "DIST":
+	            distance_value = float(dissected_vars[0])
+
+	        # Switch Board
+	        if dissected_ard_input[0] == "SWTCH":
+	            cart_on = int(dissected_vars[0])
+	            cart_auto = int(dissected_vars[1])
+	            cart_mode = int(dissected_vars[2])
+
+	            # Logic To Override Mode To AUTO If AUTO Switch Is Flicked (MODE OVERRIDE)
+	            if cart_auto == 1: cart_mode = 0
+	            
+	            # Reading Mode Data
+	            mode_data_file = open('mode_config.json', 'r')
+	            mode_data = json.load(mode_data_file)
+	            mode_data = mode_data["mode"]
+
+	            # Giving Gearbox New RPM Ranges And Getting Mode's name
+	            try:
+	                cart_mode_txt = mode_data[cart_mode]['modeName']
+	                gbox_minRPM = mode_data[cart_mode]['minRPM']
+	                gbox_maxRPM = mode_data[cart_mode]['maxRPM']
+	                print("GBOX|{newMin},{newMax}".format(newMin=gbox_minRPM, newMax=gbox_maxRPM))
+	            except:
+	                print("Invalid mode. Mode out of range")
+
+
+	        # Gearbox Controller
+	        if dissected_ard_input[0] == "GBOX":
+	            rpm_motor = float(dissected_vars[0])
+	            rpm_cvt_out = float(dissected_vars[1])
+	            rpm_clutch_out = float(dissected_vars[2])
+
+	        # Aux Sensors
+	        if dissected_ard_input[0] == "AUX":
+	            aux_temp_motor = float(dissected_vars[0])
+	            aux_temp_bat_1 = float(dissected_vars[1])
+	            aux_temp_bat_2 = float(dissected_vars[2])
+	            aux_temp_fuse = float(dissected_vars[3])
+	            aux_temp_motor_cont = float(dissected_vars[4])
+	            aux_temp_brake_FL = float(dissected_vars[5])
+	            aux_temp_brake_FR = float(dissected_vars[6])
+	            aux_temp_brake_BL = float(dissected_vars[7])
+	            aux_temp_brake_BR = float(dissected_vars[8])
+	            aux_temp_rpi = float(dissected_vars[9])
+	            aux_cur_bat = float(dissected_vars[10])
+	            aux_gps_lon = float(dissected_vars[11])
+	            aux_gps_lat = float(dissected_vars[12])
+	            aux_g_force_x = float(dissected_vars[13])
+	            aux_g_force_y = float(dissected_vars[14])
+	            aux_g_force_z = float(dissected_vars[15])
+
+	        # User Inputs
+	        if dissected_ard_input[0] == "USR":
+	            usr_wheel = float(dissected_vars[0])
+	            usr_accel = float(dissected_vars[1])
+	            usr_brake = float(dissected_vars[2])
+	            updateMovementController()
+
+
+	        # Save Data
+	        log_file = open("log_file_{datetime}.txt".format(datetime=started_datetime.strftime("%d-%b-%Y-%H.%M.%S")), 'a')
+	        log_file.write(str(steering_correction)+",")
+	        log_file.write(str(distance_value)+",")
+	        log_file.write(str(cart_on)+",")
+	        log_file.write(str(cart_auto)+",")
+	        log_file.write(str(cart_mode)+",")
+	        log_file.write(str(rpm_motor)+",")
+	        log_file.write(str(rpm_cvt_out)+",")
+	        log_file.write(str(rpm_clutch_out)+",")
+	        log_file.write(str(aux_temp_motor)+",")
+	        log_file.write(str(aux_temp_bat_1)+",")
+	        log_file.write(str(aux_temp_bat_2)+",")
+	        log_file.write(str(aux_temp_fuse)+",")
+	        log_file.write(str(aux_temp_motor_cont)+",")
+	        log_file.write(str(aux_temp_brake_FL)+",")
+	        log_file.write(str(aux_temp_brake_FR)+",")
+	        log_file.write(str(aux_temp_brake_BL)+",")
+	        log_file.write(str(aux_temp_brake_BR)+",")
+	        log_file.write(str(aux_temp_rpi)+",")
+	        log_file.write(str(aux_cur_bat)+",")
+	        log_file.write(str(aux_gps_lon)+",")
+	        log_file.write(str(aux_gps_lat)+",")
+	        log_file.write(str(aux_g_force_x)+",")
+	        log_file.write(str(aux_g_force_y)+",")
+	        log_file.write(str(aux_g_force_z)+",")
+	        log_file.write(str(aux_battery_voltmeter)+",")
+	        log_file.write(str(usr_wheel)+",")
+	        log_file.write(str(usr_accel)+",")
+	        log_file.write(str(usr_brake)+"\n")
+	        log_file.close()
+	        
+	        
+	        # Reset Arduino Input Variable
+	        ard_input = "|"
+
+
+	    # Code for console input
+	    except:
+	        ard_input = input("SERIAL_INPUT: ")
+
 # Initializing Variables
 ard_input = "|"
 wheel_circumference = 1                 # in meters
@@ -277,125 +395,13 @@ cmp_battery_percentage = estimate_battery(aux_battery_voltmeter)
 cmp_cart_speed = calculate_speed(wheel_circumference, rpm_clutch_out)
 
 
-# Starting Flask
+# Starting Flask Thread
 flaskThread = Thread(target=runFlask)
 flaskThread.start()
 
-# Starting HUD
-hudThread = Thread(target=runHud)
-hudThread.start()
+# Starting Data Thread
+dataThread = Thread(target=run_get_data)
+dataThread.start()
 
-
-# Main Loop
-while True:
-    # Main Code Loop
-    try:
-        # Handle Arduino Input
-        dissected_ard_input = ard_input.split("|")
-        dissected_vars = dissected_ard_input[1].split(",")
-
-        # AI Camera
-        if dissected_ard_input[0] == "AIC":
-            steering_correction = float(dissected_vars[0])
-            
-        # Distance Sensors
-        if dissected_ard_input[0] == "DIST":
-            distance_value = float(dissected_vars[0])
-
-        # Switch Board
-        if dissected_ard_input[0] == "SWTCH":
-            cart_on = int(dissected_vars[0])
-            cart_auto = int(dissected_vars[1])
-            cart_mode = int(dissected_vars[2])
-
-            # Logic To Override Mode To AUTO If AUTO Switch Is Flicked (MODE OVERRIDE)
-            if cart_auto == 1: cart_mode = 0
-            
-            # Reading Mode Data
-            mode_data_file = open('mode_config.json', 'r')
-            mode_data = json.load(mode_data_file)
-            mode_data = mode_data["mode"]
-
-            # Giving Gearbox New RPM Ranges And Getting Mode's name
-            try:
-                cart_mode_txt = mode_data[cart_mode]['modeName']
-                gbox_minRPM = mode_data[cart_mode]['minRPM']
-                gbox_maxRPM = mode_data[cart_mode]['maxRPM']
-                print("GBOX|{newMin},{newMax}".format(newMin=gbox_minRPM, newMax=gbox_maxRPM))
-            except:
-                print("Invalid mode. Mode out of range")
-
-
-        # Gearbox Controller
-        if dissected_ard_input[0] == "GBOX":
-            rpm_motor = float(dissected_vars[0])
-            rpm_cvt_out = float(dissected_vars[1])
-            rpm_clutch_out = float(dissected_vars[2])
-
-        # Aux Sensors
-        if dissected_ard_input[0] == "AUX":
-            aux_temp_motor = float(dissected_vars[0])
-            aux_temp_bat_1 = float(dissected_vars[1])
-            aux_temp_bat_2 = float(dissected_vars[2])
-            aux_temp_fuse = float(dissected_vars[3])
-            aux_temp_motor_cont = float(dissected_vars[4])
-            aux_temp_brake_FL = float(dissected_vars[5])
-            aux_temp_brake_FR = float(dissected_vars[6])
-            aux_temp_brake_BL = float(dissected_vars[7])
-            aux_temp_brake_BR = float(dissected_vars[8])
-            aux_temp_rpi = float(dissected_vars[9])
-            aux_cur_bat = float(dissected_vars[10])
-            aux_gps_lon = float(dissected_vars[11])
-            aux_gps_lat = float(dissected_vars[12])
-            aux_g_force_x = float(dissected_vars[13])
-            aux_g_force_y = float(dissected_vars[14])
-            aux_g_force_z = float(dissected_vars[15])
-
-        # User Inputs
-        if dissected_ard_input[0] == "USR":
-            usr_wheel = float(dissected_vars[0])
-            usr_accel = float(dissected_vars[1])
-            usr_brake = float(dissected_vars[2])
-            updateMovementController()
-
-
-        # Save Data
-        log_file = open("log_file_{datetime}.txt".format(datetime=started_datetime.strftime("%d-%b-%Y-%H.%M.%S")), 'a')
-        log_file.write(str(steering_correction)+",")
-        log_file.write(str(distance_value)+",")
-        log_file.write(str(cart_on)+",")
-        log_file.write(str(cart_auto)+",")
-        log_file.write(str(cart_mode)+",")
-        log_file.write(str(rpm_motor)+",")
-        log_file.write(str(rpm_cvt_out)+",")
-        log_file.write(str(rpm_clutch_out)+",")
-        log_file.write(str(aux_temp_motor)+",")
-        log_file.write(str(aux_temp_bat_1)+",")
-        log_file.write(str(aux_temp_bat_2)+",")
-        log_file.write(str(aux_temp_fuse)+",")
-        log_file.write(str(aux_temp_motor_cont)+",")
-        log_file.write(str(aux_temp_brake_FL)+",")
-        log_file.write(str(aux_temp_brake_FR)+",")
-        log_file.write(str(aux_temp_brake_BL)+",")
-        log_file.write(str(aux_temp_brake_BR)+",")
-        log_file.write(str(aux_temp_rpi)+",")
-        log_file.write(str(aux_cur_bat)+",")
-        log_file.write(str(aux_gps_lon)+",")
-        log_file.write(str(aux_gps_lat)+",")
-        log_file.write(str(aux_g_force_x)+",")
-        log_file.write(str(aux_g_force_y)+",")
-        log_file.write(str(aux_g_force_z)+",")
-        log_file.write(str(aux_battery_voltmeter)+",")
-        log_file.write(str(usr_wheel)+",")
-        log_file.write(str(usr_accel)+",")
-        log_file.write(str(usr_brake)+"\n")
-        log_file.close()
-        
-        
-        # Reset Arduino Input Variable
-        ard_input = "|"
-
-
-    # Code for console input
-    except:
-        ard_input = input("SERIAL_INPUT: ")
+# Running HUD
+runHud()
