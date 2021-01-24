@@ -354,6 +354,7 @@ while True:
             aux_g_force_x = float(dissected_vars[13])
             aux_g_force_y = float(dissected_vars[14])
             aux_g_force_z = float(dissected_vars[15])
+            aux_battery_voltmeter = float(dissected_vars[16])
 
         # User Inputs
         if dissected_ard_input[0] == "USR":
@@ -403,10 +404,3 @@ while True:
     # Code for console input
     except:
         ard_input = input("SERIAL_INPUT: ")
-
-"""# Starting Data Thread
-dataThread = Thread(target=run_get_data)
-dataThread.start()"""
-
-"""# Running HUD
-runHud()"""
