@@ -4,6 +4,9 @@ from datetime import datetime
 from flask import Flask, render_template, Response, send_file
 import cv2
 from threading import Thread
+from tkinter import *
+import random
+from PIL import ImageTk, Image
 
 
 # Initializing Functions
@@ -11,6 +14,14 @@ def updateMovementController():
     print("MVMNT|{steer},{accel},{brake}".format(steer=usr_wheel, accel=usr_accel, brake=usr_brake))
 def runFlask():
     app.run(host='0.0.0.0', debug=False, threaded=True)
+def runHud():
+    while True:
+        basicHud()
+        detailedHud()
+def estimate_battery(aux_battery_voltmeter):
+    return -99999
+def calculate_speed(wheel_circumference, rpm):
+    return ((wheel_circumference/1000)*60)*rpm
 
 # Initializing Camera
 vc = cv2.VideoCapture(0)
@@ -58,6 +69,7 @@ def text_data():
            "X-Axis G-Force: "+str(aux_g_force_x)+"<br>"+                     \
            "Y-Axis G-Force: "+str(aux_g_force_y)+"<br>"+                     \
            "Z-Axis G-Force: "+str(aux_g_force_z)+"<br>"+                     \
+           "Battery voltage: "+str(aux_battery_voltmeter)+"<br>"+            \
            "Steering wheel position: "+str(usr_wheel)+"<br>"+                \
            "Throttle position: "+str(usr_accel)+"<br>"+                      \
            "Brake position: "+str(usr_brake)
@@ -69,9 +81,154 @@ def gps_coords():
     return str(aux_gps_lon)+","+str(aux_gps_lat)  ##open("gps.txt", 'r').read()
 
 
+# Creating Basic HUD
+def basicHud(): 
+    # Initializing Behaviours
+    def basicHudUpdate():
+        # Creating These Variables For Debugging Use
+        temperatureCheck = random.randint(0, 1)
+        engineCheck = random.randint(0, 1)
+
+        # Updating Information On The Information Label
+        infoLabel.config(fg = "white", bg = "black", text="Speed:\n{speedValue} KPH\nMode:\n{cartMode}\nBattery:\n{batteryPercentage}%".format(speedValue=cmp_cart_speed, cartMode=cart_mode_txt, batteryPercentage=cmp_battery_percentage))
+
+        # Temperature Check Light
+        if temperatureCheck == 0:
+            temperatureCheckImage = ImageTk.PhotoImage(Image.open("hudImages/temperatureCheckFalse.png"))
+            temperatureCheckLight.configure(image=temperatureCheckImage)
+            temperatureCheckLight.image = temperatureCheckImage
+        elif temperatureCheck == 1:
+            temperatureCheckImage = ImageTk.PhotoImage(Image.open("hudImages/temperatureCheckTrue.png"))
+            temperatureCheckLight.configure(image=temperatureCheckImage)
+            temperatureCheckLight.image = temperatureCheckImage
+
+        # Engine Check Light
+        if engineCheck == 0:
+            engineCheckImage = ImageTk.PhotoImage(Image.open("hudImages/engineCheckFalse.jpg"))
+            engineCheckLight.configure(image=engineCheckImage)
+            engineCheckLight.image = engineCheckImage
+        elif engineCheck == 1:
+            engineCheckImage = ImageTk.PhotoImage(Image.open("hudImages/engineCheckTrue.jpg"))
+            engineCheckLight.configure(image=engineCheckImage)
+            engineCheckLight.image = engineCheckImage
+
+        # Updating Map Image
+        mapImage = ImageTk.PhotoImage(Image.open("hudImages/map.png"))
+        mapLabel.configure(image=mapImage)
+        mapLabel.image=mapImage
+
+        # Re-Calling This Function To Form A Infinate Update Loop
+        basicHudWindow.after(1000, basicHudUpdate) 
+
+    
+    # Initializing Window
+    basicHudWindow = Tk()
+    basicHudWindow.geometry("800x480")
+    basicHudWindow.attributes('-fullscreen', True)
+    basicHudWindow.configure(background='black')
+
+    # Setting Up Information Label
+    infoLabel = Label(basicHudWindow, text="Speed: ", font=("Helvetica", 18))
+    infoLabel.place(x = 660, y = 150)
+
+    # Setting Up Engine Check Light
+    engineCheckImage = ImageTk.PhotoImage(Image.open("hudImages/engineCheckFalse.jpg"))
+    engineCheckLight = Label(image=engineCheckImage, bg="black")
+    engineCheckLight.place(x = 650, y = 20)
+
+    # Setting Up Temperature Check Light
+    temperatureCheckImage = ImageTk.PhotoImage(Image.open("hudImages/temperatureCheckFalse.png"))
+    temperatureCheckLight = Label(image=temperatureCheckImage, bg="black")
+    temperatureCheckLight.place(x = 650,y = 350)
+
+    # Setting Up Map Image
+    mapImage = ImageTk.PhotoImage(Image.open("hudImages/map.png"))
+    mapLabel = Label(image=mapImage, bg="black")
+    mapLabel.place(x=0, y=0)
+
+    # Creating Button To Swap HUD Mode
+    hudSwap = Button(basicHudWindow, text="Switch", bg = "white", command=basicHudWindow.destroy)
+    hudSwap.place(x = 10, y = 400)
+    hudSwap.config(height = 4, width = 10)
+
+    # Starting The Update Loop For This HUD Window
+    basicHudUpdate()
+
+    # Starting The Main Loop For This HUD Window
+    basicHudWindow.mainloop()
+
+
+# Creating More Detailed HUD
+def detailedHud():
+    # Initializing Behaviours
+    def detailedHudUpdate():
+        stats.config(fg = "white", bg = "black",
+        text="--------------Driving--------------"
+        + "\nSpeed: " + str(usr_accel)
+        + "\nPower: " + str(cart_on)
+        + "\nMode: " + str(cart_mode)
+        + "\nBattery: " + str(random.randint(0, 100)) + "%"
+        + "\nRPM: " + str(rpm_motor)
+        + "\nSteering Correction: " + str(steering_correction)
+        + "\nDistance Value: " + str(distance_value)
+        )
+
+        stats2.config(fg = "white", bg = "black",
+        text="----------Temperature----------"
+        + "\nMotor Temp: " + str(aux_temp_motor)
+        + "\nBattery 1 Temp: " + str(aux_temp_bat_1)
+        + "\nBattery 2 Temp: " + str(aux_temp_bat_2)
+        + "\nFuse Temperature: " + str(aux_temp_fuse)
+        + "\nMotor Controller Temp: " + str(aux_temp_motor_cont)
+        + "\nFront Left Brake Temp: " + str(aux_temp_brake_FL)
+        + "\nFront Right Brake Temp: " + str(aux_temp_brake_FR)
+        + "\nBack Left Brake Temp: " + str(aux_temp_brake_BL)
+        + "\nBack Right Brake Temp: " + str(aux_temp_brake_BR)
+        + "\nRaspberry Pi Temp: " + str(aux_temp_rpi)
+        )
+
+
+        stats3.config(fg = "white", bg = "black",
+        text="----------------Map----------------"
+        + "\nLongitude :" + str(aux_gps_lon)
+        + "\nLatitude: " + str(aux_gps_lon)
+        + "\n---------Other Sensors---------"
+        + "\nDistance Value: " + str(distance_value)
+        )
+
+        # Re-Calling This Function To Form A Infinate Update Loop
+        detailedHudWindow.after(1000, detailedHudUpdate)
+        
+
+    # Initializing Window
+    detailedHudWindow = Tk()
+    detailedHudWindow.geometry("800x480")
+    detailedHudWindow.attributes('-fullscreen', True)
+    detailedHudWindow.configure(background='black')
+
+    # Creating Stat Labels
+    stats = Label(detailedHudWindow, fg = "white", bg = "black", text="Speed: ", justify=LEFT, font=("Helvetica", 14))
+    stats.place(x = 10 , y = 100)
+    stats2 = Label(detailedHudWindow, fg = "white", bg = "black", text="Speed: ", justify=LEFT, font=("Helvetica", 14))
+    stats2.place(x = 280, y = 100)
+    stats3 = Label(detailedHudWindow, fg = "white", bg = "black", text="Speed: ", justify=LEFT, font=("Helvetica", 14))
+    stats3.place(x = 550, y = 100)
+
+    # Creating Button To Swap HUD Mode
+    hudSwap = Button(detailedHudWindow, text="Switch", bg = "white", command=detailedHudWindow.destroy)
+    hudSwap.place(x = 10, y = 400)
+    hudSwap.config(height = 4, width = 10)
+
+    # Starting The Update Loop For This HUD Window
+    detailedHudUpdate()
+
+    # Starting The Main Loop For This HUD Window
+    detailedHudWindow.mainloop()
+
+
 # Initializing Variables
 ard_input = "|"
-wheel_circumference = 1
+wheel_circumference = 1                 # in meters
 started_datetime = datetime.now()
 
 # AI Camera
@@ -108,16 +265,25 @@ aux_gps_lat = 0
 aux_g_force_x = 0
 aux_g_force_y = 0
 aux_g_force_z = 0
+aux_battery_voltmeter = 0
 
 # User Inputs
 usr_wheel = 0
 usr_accel = 0
 usr_brake = 0
 
+# Complex Variables
+cmp_battery_percentage = estimate_battery(aux_battery_voltmeter)
+cmp_cart_speed = calculate_speed(wheel_circumference, rpm_clutch_out)
+
 
 # Starting Flask
 flaskThread = Thread(target=runFlask)
 flaskThread.start()
+
+# Starting HUD
+hudThread = Thread(target=runHud)
+hudThread.start()
 
 
 # Main Loop
@@ -219,6 +385,7 @@ while True:
         log_file.write(str(aux_g_force_x)+",")
         log_file.write(str(aux_g_force_y)+",")
         log_file.write(str(aux_g_force_z)+",")
+        log_file.write(str(aux_battery_voltmeter)+",")
         log_file.write(str(usr_wheel)+",")
         log_file.write(str(usr_accel)+",")
         log_file.write(str(usr_brake)+"\n")
