@@ -1,11 +1,73 @@
 # Importing Libs
 import json
 from datetime import datetime
+from flask import Flask, render_template, Response, send_file
+import cv2
+from threading import Thread
 
 
 # Initializing Functions
 def updateMovementController():
     print("MVMNT|{steer},{accel},{brake}".format(steer=usr_wheel, accel=usr_accel, brake=usr_brake))
+def runFlask():
+    app.run(host='0.0.0.0', debug=False, threaded=True)
+
+# Initializing Camera
+vc = cv2.VideoCapture(0)
+
+# Initializing Flask
+app = Flask(__name__)
+
+# Creating Flask
+@app.route('/')
+def index():
+    return render_template("index.html")
+        
+@app.route('/video_feed')
+def video_feed():
+    return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
+def gen():
+    while True:
+        rval, frame = vc.read()
+        byteArray = cv2.imencode('.jpg', frame)[1].tobytes()
+        yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + byteArray + b'\r\n')
+
+@app.route('/text_data')
+def text_data():
+    return "AI wheel adjustment: "+str(steering_correction)+"<br>"+          \
+           "Distance from object: "+str(distance_value)+"<br>"+              \
+           "Motor powered: "+str(bool(cart_on))+"<br>"+                      \
+           "Autonomous driver: "+str(bool(cart_auto))+"<br>"+                \
+           "Cart mode: "+cart_mode_txt+"/"+str(cart_mode)+"<br>"+            \
+           "Motor RPM: "+str(rpm_motor)+"<br>"+                              \
+           "Gearbox RPM: "+str(rpm_cvt_out)+"<br>"+                          \
+           "Clutch RPM: "+str(rpm_clutch_out)+"<br>"+                        \
+           "Motor temperature: "+str(aux_temp_motor)+"<br>"+                 \
+           "Battery pack #1 temperature: "+str(aux_temp_bat_1)+"<br>"+       \
+           "Battery pack #2 temperature: "+str(aux_temp_bat_2)+"<br>"+       \
+           "Fuse temperature: "+str(aux_temp_fuse)+"<br>"+                   \
+           "Motor controller temperature: "+str(aux_temp_motor_cont)+"<br>"+ \
+           "Front-Left brake temperature: "+str(aux_temp_brake_FL)+"<br>"+   \
+           "Front-Right brake temperature: "+str(aux_temp_brake_FR)+"<br>"+  \
+           "Back-Left brake temperature: "+str(aux_temp_brake_BL)+"<br>"+    \
+           "Back-Right brake temperature: "+str(aux_temp_brake_BR)+"<br>"+   \
+           "CPU temperature: "+str(aux_temp_rpi)+"<br>"+                     \
+           "Power Consumption: "+str(aux_cur_bat)+"<br>"+                    \
+           "GPS Longitude: "+str(aux_gps_lon)+"<br>"+                        \
+           "GPS Latitude: "+str(aux_gps_lat)+"<br>"+                         \
+           "X-Axis G-Force: "+str(aux_g_force_x)+"<br>"+                     \
+           "Y-Axis G-Force: "+str(aux_g_force_y)+"<br>"+                     \
+           "Z-Axis G-Force: "+str(aux_g_force_z)+"<br>"+                     \
+           "Steering wheel position: "+str(usr_wheel)+"<br>"+                \
+           "Throttle position: "+str(usr_accel)+"<br>"+                      \
+           "Brake position: "+str(usr_brake)
+           
+    ##return open("save_data.txt", 'r').read()
+
+@app.route("/gps_coords")
+def gps_coords():
+    return str(aux_gps_lon)+","+str(aux_gps_lat)  ##open("gps.txt", 'r').read()
+
 
 # Initializing Variables
 ard_input = "|"
@@ -21,7 +83,8 @@ distance_value = 0
 # Switch Board
 cart_on = 0
 cart_auto = 0
-cart_mode = 0 # 0 = Torque, 1 = Economy
+cart_mode = 1 # 0 = Auto, 1 = Sport, 2 = Economy
+cart_mode_txt = "SPORT"
 
 # Gearbox Controller
 rpm_motor = 0
@@ -52,9 +115,13 @@ usr_accel = 0
 usr_brake = 0
 
 
+# Starting Flask
+flaskThread = Thread(target=runFlask)
+flaskThread.start()
+
+
 # Main Loop
 while True:
-
     # Main Code Loop
     try:
         # Handle Arduino Input
@@ -63,95 +130,70 @@ while True:
 
         # AI Camera
         if dissected_ard_input[0] == "AIC":
-            steering_correction = int(dissected_vars[0])
+            steering_correction = float(dissected_vars[0])
             
         # Distance Sensors
         if dissected_ard_input[0] == "DIST":
-            distance_value = int(dissected_vars[0])
+            distance_value = float(dissected_vars[0])
 
         # Switch Board
         if dissected_ard_input[0] == "SWTCH":
             cart_on = int(dissected_vars[0])
             cart_auto = int(dissected_vars[1])
             cart_mode = int(dissected_vars[2])
+
+            # Logic To Override Mode To AUTO If AUTO Switch Is Flicked (MODE OVERRIDE)
+            if cart_auto == 1: cart_mode = 0
             
             # Reading Mode Data
             mode_data_file = open('mode_config.json', 'r')
             mode_data = json.load(mode_data_file)
             mode_data = mode_data["mode"]
 
-            # Giving Gearbox New RPM Ranges
+            # Giving Gearbox New RPM Ranges And Getting Mode's name
             try:
+                cart_mode_txt = mode_data[cart_mode]['modeName']
                 gbox_minRPM = mode_data[cart_mode]['minRPM']
                 gbox_maxRPM = mode_data[cart_mode]['maxRPM']
                 print("GBOX|{newMin},{newMax}".format(newMin=gbox_minRPM, newMax=gbox_maxRPM))
             except:
                 print("Invalid mode. Mode out of range")
 
+
         # Gearbox Controller
         if dissected_ard_input[0] == "GBOX":
-            rpm_motor = int(dissected_vars[0])
-            rpm_cvt_out = int(dissected_vars[1])
-            rpm_clutch_out = int(dissected_vars[2])
+            rpm_motor = float(dissected_vars[0])
+            rpm_cvt_out = float(dissected_vars[1])
+            rpm_clutch_out = float(dissected_vars[2])
 
         # Aux Sensors
         if dissected_ard_input[0] == "AUX":
-            aux_temp_motor = int(dissected_vars[0])
-            aux_temp_bat_1 = int(dissected_vars[1])
-            aux_temp_bat_2 = int(dissected_vars[2])
-            aux_temp_fuse = int(dissected_vars[3])
-            aux_temp_motor_cont = int(dissected_vars[4])
-            aux_temp_brake_FL = int(dissected_vars[5])
-            aux_temp_brake_FR = int(dissected_vars[6])
-            aux_temp_brake_BL = int(dissected_vars[7])
-            aux_temp_brake_BR = int(dissected_vars[8])
-            aux_temp_rpi = int(dissected_vars[9])
-            aux_cur_bat = int(dissected_vars[10])
-            aux_gps_lon = int(dissected_vars[11])
-            aux_gps_lat = int(dissected_vars[12])
-            aux_g_force_x = int(dissected_vars[13])
-            aux_g_force_y = int(dissected_vars[14])
-            aux_g_force_z = int(dissected_vars[15])
+            aux_temp_motor = float(dissected_vars[0])
+            aux_temp_bat_1 = float(dissected_vars[1])
+            aux_temp_bat_2 = float(dissected_vars[2])
+            aux_temp_fuse = float(dissected_vars[3])
+            aux_temp_motor_cont = float(dissected_vars[4])
+            aux_temp_brake_FL = float(dissected_vars[5])
+            aux_temp_brake_FR = float(dissected_vars[6])
+            aux_temp_brake_BL = float(dissected_vars[7])
+            aux_temp_brake_BR = float(dissected_vars[8])
+            aux_temp_rpi = float(dissected_vars[9])
+            aux_cur_bat = float(dissected_vars[10])
+            aux_gps_lon = float(dissected_vars[11])
+            aux_gps_lat = float(dissected_vars[12])
+            aux_g_force_x = float(dissected_vars[13])
+            aux_g_force_y = float(dissected_vars[14])
+            aux_g_force_z = float(dissected_vars[15])
 
         # User Inputs
         if dissected_ard_input[0] == "USR":
-            usr_wheel = int(dissected_vars[0])
-            usr_accel = int(dissected_vars[1])
-            usr_brake = int(dissected_vars[2])
+            usr_wheel = float(dissected_vars[0])
+            usr_accel = float(dissected_vars[1])
+            usr_brake = float(dissected_vars[2])
             updateMovementController()
 
 
         # Save Data
-        save_file = open("save_data.txt", "w")
-        save_file.write("steering_correction:"+str(steering_correction)+"\n")
-        save_file.write("distance_value:"+str(distance_value)+"\n")
-        save_file.write("cart_on:"+str(cart_on)+"\n")
-        save_file.write("cart_auto:"+str(cart_auto)+"\n")
-        save_file.write("cart_mode:"+str(cart_mode)+"\n")
-        save_file.write("rpm_motor:"+str(rpm_motor)+"\n")
-        save_file.write("rpm_cvt_out:"+str(rpm_cvt_out)+"\n")
-        save_file.write("rpm_clutch_out:"+str(rpm_clutch_out)+"\n")
-        save_file.write("aux_temp_motor:"+str(aux_temp_motor)+"\n")
-        save_file.write("aux_temp_bat_1:"+str(aux_temp_bat_1)+"\n")
-        save_file.write("aux_temp_bat_2:"+str(aux_temp_bat_2)+"\n")
-        save_file.write("aux_temp_fuse:"+str(aux_temp_fuse)+"\n")
-        save_file.write("aux_temp_motor_cont:"+str(aux_temp_motor_cont)+"\n")
-        save_file.write("aux_temp_brake_FL:"+str(aux_temp_brake_FL)+"\n")
-        save_file.write("aux_temp_brake_FR:"+str(aux_temp_brake_FR)+"\n")
-        save_file.write("aux_temp_brake_BL:"+str(aux_temp_brake_BL)+"\n")
-        save_file.write("aux_temp_brake_BR:"+str(aux_temp_brake_BR)+"\n")
-        save_file.write("aux_temp_rpi:"+str(aux_temp_rpi)+"\n")
-        save_file.write("aux_cur_bat:"+str(aux_cur_bat)+"\n")
-        save_file.write("aux_gps_lon:"+str(aux_gps_lon)+"\n")
-        save_file.write("aux_gps_lat:"+str(aux_gps_lat)+"\n")
-        save_file.write("aux_g_force_x:"+str(aux_g_force_x)+"\n")
-        save_file.write("aux_g_force_y:"+str(aux_g_force_y)+"\n")
-        save_file.write("aux_g_force_z:"+str(aux_g_force_z)+"\n")
-        save_file.write("usr_wheel:"+str(usr_wheel)+"\n")
-        save_file.write("usr_accel:"+str(usr_accel)+"\n")
-        save_file.write("usr_brake:"+str(usr_brake)+"\n")
-        save_file.close()
-        
         log_file = open("log_file_{datetime}.txt".format(datetime=started_datetime.strftime("%d-%b-%Y-%H.%M.%S")), 'a')
         log_file.write(str(steering_correction)+",")
         log_file.write(str(distance_value)+",")
