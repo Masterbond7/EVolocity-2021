@@ -1,136 +1,132 @@
+# Importing Libs
 from tkinter import *
 import random
 from PIL import ImageTk, Image
 
-#1#
-def hud1():
-    root = Tk()
-    root.title('Car Stats')
-    root.geometry("800x480")
-    root.attributes('-fullscreen', True)
-    root.configure(background='black')
+# Initializing Variables
+steering_correction = 0
+distance_value = 0
+cart_on = 0
+cart_auto = 0
+cart_mode = 0
+rpm_motor = 0
+rpm_cvt_out = 0
+rpm_clutch_out = 0
+aux_temp_motor = 0
+aux_temp_bat_1 = 0
+aux_temp_bat_2 = 0
+aux_temp_fuse = 0
+aux_temp_motor_cont = 0
+aux_temp_brake_FL = 0
+aux_temp_brake_FR = 0
+aux_temp_brake_BL = 0
+aux_temp_brake_BR = 0
+aux_temp_rpi = 0
+aux_cur_bat = 0
+aux_gps_lon = 0
+aux_gps_lat = 0
+aux_g_force_x = 0
+aux_g_force_y = 0
+aux_g_force_z = 0
+usr_wheel = 0
+usr_accel = 0
+usr_brake = 0
+
+
+# Basic HUD
+def basicHud(): 
+    # Initializing Behaviours
+    def basicHudUpdate():
+        # Creating These Variables For Debugging Use
+        temperatureCheck = random.randint(0, 1)
+        engineCheck = random.randint(0, 1)
+        
+        cart_mode = random.randint(0, 2)
+        cart_speed = random.randint(0, 50)
+        battery_percentage = random.randint(0,100)
+
+        # Updating Information On The Information Label
+        infoLabel.config(fg = "white", bg = "black", text="Speed:\n{speedValue} KPH\nMode:\n{cartMode}\nBattery:\n{batteryPercentage}%".format(speedValue=cart_speed, cartMode=cart_mode, batteryPercentage=battery_percentage))
+
+        # Temperature Check Light
+        if temperatureCheck == 0:
+            temperatureCheckImage = ImageTk.PhotoImage(Image.open("temperatureCheckFalse.png"))
+            temperatureCheckLight.configure(image=temperatureCheckImage)
+            temperatureCheckLight.image = temperatureCheckImage
+        elif temperatureCheck == 1:
+            temperatureCheckImage = ImageTk.PhotoImage(Image.open("temperatureCheckTrue.png"))
+            temperatureCheckLight.configure(image=temperatureCheckImage)
+            temperatureCheckLight.image = temperatureCheckImage
+
+        # Engine Check Light
+        if engineCheck == 0:
+            engineCheckImage = ImageTk.PhotoImage(Image.open("engineCheckFalse.jpg"))
+            engineCheckLight.configure(image=engineCheckImage)
+            engineCheckLight.image = engineCheckImage
+        elif engineCheck == 1:
+            engineCheckImage = ImageTk.PhotoImage(Image.open("engineCheckTrue.jpg"))
+            engineCheckLight.configure(image=engineCheckImage)
+            engineCheckLight.image = engineCheckImage
+
+        # Updating Map Image
+        mapImage = ImageTk.PhotoImage(Image.open("map.png"))
+        mapLabel.configure(image=mapImage)
+        mapLabel.image=mapImage
+
+        # Re-Calling This Function To Form A Infinate Update Loop
+        basicHudWindow.after(1000, basicHudUpdate) 
+
     
-    speed = Label(root, text="Speed: ", font=("Helvetica", 18))
-    speed.place(x = 660, y = 150)
+    # Initializing Window
+    basicHudWindow = Tk()
+    basicHudWindow.geometry("800x480")
+    basicHudWindow.attributes('-fullscreen', True)
+    basicHudWindow.configure(background='black')
 
-    weewoo = ImageTk.PhotoImage(Image.open("weewoo.jpg"))
-    weewooLabel = Label(image=weewoo, bg="black")
-    weewooLabel.place(x = 650, y = 20)
+    # Setting Up Information Label
+    infoLabel = Label(basicHudWindow, text="Speed: ", font=("Helvetica", 18))
+    infoLabel.place(x = 660, y = 150)
 
-    fire = ImageTk.PhotoImage(Image.open("fire.png"))
-    fireLabel = Label(image=fire, bg="black")
-    fireLabel.place(x = 650,y = 350)
+    # Setting Up Engine Check Light
+    engineCheckImage = ImageTk.PhotoImage(Image.open("engineCheckFalse.jpg"))
+    engineCheckLight = Label(image=engineCheckImage, bg="black")
+    engineCheckLight.place(x = 650, y = 20)
 
-    gmap = ImageTk.PhotoImage(Image.open("map.png"))
-    gmapLabel = Label(image=gmap, bg="black")
-    gmapLabel.place(x = 0,y = 0)
+    # Setting Up Temperature Check Light
+    temperatureCheckImage = ImageTk.PhotoImage(Image.open("temperatureCheckFalse.png"))
+    temperatureCheckLight = Label(image=temperatureCheckImage, bg="black")
+    temperatureCheckLight.place(x = 650,y = 350)
 
-    kil = Button(root, text="Switch", bg = "white", command=root.destroy)
-    kil.place(x = 10, y = 400)
-    kil.config(height = 4, width = 10)
+    # Setting Up Map Image
+    mapImage = ImageTk.PhotoImage(Image.open("map.png"))
+    mapLabel = Label(image=mapImage, bg="black")
+    mapLabel.place(x=0, y=0)
 
-    def something():
-        imgValue = random.randint(0,1)
-        speedValue = random.randint(1, 10)
-        modeValue = random.randint(1, 6)
-        speed.config(fg = "white", bg = "black", text="Speed:\n" + str(speedValue) + "\nMode:\n" + str(modeValue) + ("\nBattery:\n63%"))
+    # Creating Button To Swap HUD Mode
+    hudSwap = Button(basicHudWindow, text="Switch", bg = "white", command=basicHudWindow.destroy)
+    hudSwap.place(x = 10, y = 400)
+    hudSwap.config(height = 4, width = 10)
 
-        #fire
-        if imgValue == 0:
-            fire2 = ImageTk.PhotoImage(Image.open("fire.png"))
-            fireLabel.configure(image=fire2)
-            fireLabel.image = fire2
-        elif imgValue == 1:
-            fire2 = ImageTk.PhotoImage(Image.open("fire2.png"))
-            fireLabel.configure(image=fire2)
-            fireLabel.image = fire2
+    # Starting The Update Loop For This HUD Window
+    basicHudUpdate()
 
-        #weewoo
-        if imgValue == 0:
-            weewoo = ImageTk.PhotoImage(Image.open("weewoo.jpg"))
-            weewooLabel.configure(image=weewoo)
-            weewooLabel.image = weewoo
-        elif imgValue == 1:
-            weewoo2 = ImageTk.PhotoImage(Image.open("weewoo2.jpg"))
-            weewooLabel.configure(image=weewoo2)
-            weewooLabel.image = weewoo2
-
-        root.after(1000, something) 
-
-    something()
-    
-    root.mainloop()
-    
-#2#
-def hud2():
-    root = Tk()
-    root.title('Car Stats')
-    root.geometry("800x480")
-    root.attributes('-fullscreen', True)
-    root.configure(background='black')
-    
-    stats = Label(root, fg = "white", bg = "black", text="Speed: ", justify=LEFT, font=("Helvetica", 14))
-    stats.place(x = 10 , y = 100)
-
-    stats2 = Label(root, fg = "white", bg = "black", text="Speed: ", justify=LEFT, font=("Helvetica", 14))
-    stats2.place(x = 280, y = 100)
-
-    stats3 = Label(root, fg = "white", bg = "black", text="Speed: ", justify=LEFT, font=("Helvetica", 14))
-    stats3.place(x = 550, y = 100)
-
-    kil = Button(root, text="Switch", bg = "white", command=root.destroy)
-    kil.place(x = 10, y = 400)
-    kil.config(height = 4, width = 10)
-
-    #####
-
-    steering_correction=0 #
-    distance_value=0 #
-    cart_on=0 #
-    cart_auto=0
-    cart_mode=0 #
-    rpm_motor=0 #
-    rpm_cvt_out=0
-    rpm_clutch_out=0
-    aux_temp_motor=0#
-    aux_temp_bat_1=0#
-    aux_temp_bat_2=0#
-    aux_temp_fuse=0#
-    aux_temp_motor_cont=0#
-    aux_temp_brake_FL=0#
-    aux_temp_brake_FR=0#
-    aux_temp_brake_BL=0#
-    aux_temp_brake_BR=0#
-    aux_temp_rpi=0#
-    aux_cur_bat=0
-    aux_gps_lon=0#
-    aux_gps_lat=0#
-    aux_g_force_x=0
-    aux_g_force_y=0
-    aux_g_force_z=0
-    usr_wheel=0
-    usr_accel=0#
-    usr_brake=0
-
-    #####
+    # Starting The Main Loop For This HUD Window
+    basicHudWindow.mainloop()
 
 
-    def something2():
+# More Detailed HUD
+def detailedHud():
+    # Initializing Behaviours
+    def detailedHudUpdate():
         stats.config(fg = "white", bg = "black",
         text="--------------Driving--------------"
         + "\nSpeed: " + str(usr_accel)
         + "\nPower: " + str(cart_on)
         + "\nMode: " + str(cart_mode)
-        + "\nBattery: " + "1" + "%"
+        + "\nBattery: " + str(random.randint(0, 100)) + "%"
         + "\nRPM: " + str(rpm_motor)
         + "\nSteering Correction: " + str(steering_correction)
         + "\nDistance Value: " + str(distance_value)
-        
-        
-        #+ "\n: " + str()
-        #+ "\n: " + str()
-        #+ "\n: " + str()
-
         )
 
         stats2.config(fg = "white", bg = "black",
@@ -145,7 +141,6 @@ def hud2():
         + "\nBack Left Brake Temp: " + str(aux_temp_brake_BL)
         + "\nBack Right Brake Temp: " + str(aux_temp_brake_BR)
         + "\nRaspberry Pi Temp: " + str(aux_temp_rpi)
-
         )
 
 
@@ -155,40 +150,39 @@ def hud2():
         + "\nLatitude: " + str(aux_gps_lon)
         + "\n---------Other Sensors---------"
         + "\nDistance Value: " + str(distance_value)
-
-
-
-
         )
+
+        # Re-Calling This Function To Form A Infinate Update Loop
+        detailedHudWindow.after(1000, detailedHudUpdate)
         
 
-    something()
+    # Initializing Window
+    detailedHudWindow = Tk()
+    detailedHudWindow.geometry("800x480")
+    detailedHudWindow.attributes('-fullscreen', True)
+    detailedHudWindow.configure(background='black')
+
+    # Creating Stat Labels
+    stats = Label(detailedHudWindow, fg = "white", bg = "black", text="Speed: ", justify=LEFT, font=("Helvetica", 14))
+    stats.place(x = 10 , y = 100)
+    stats2 = Label(detailedHudWindow, fg = "white", bg = "black", text="Speed: ", justify=LEFT, font=("Helvetica", 14))
+    stats2.place(x = 280, y = 100)
+    stats3 = Label(detailedHudWindow, fg = "white", bg = "black", text="Speed: ", justify=LEFT, font=("Helvetica", 14))
+    stats3.place(x = 550, y = 100)
+
+    # Creating Button To Swap HUD Mode
+    hudSwap = Button(detailedHudWindow, text="Switch", bg = "white", command=detailedHudWindow.destroy)
+    hudSwap.place(x = 10, y = 400)
+    hudSwap.config(height = 4, width = 10)
+
+    # Starting The Update Loop For This HUD Window
+    detailedHudUpdate()
+
+    # Starting The Main Loop For This HUD Window
+    detailedHudWindow.mainloop()
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    root.mainloop()
-
-    #2#
+# Main Program Loop To Make Sure A HUD Window Is Always Open
 while True:
-    hud1()
-
-    hud2()
-
-#it works dont juge me
+    basicHud()
+    detailedHud()

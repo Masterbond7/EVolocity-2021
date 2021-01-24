@@ -9,6 +9,7 @@ def updateMovementController():
 
 # Initializing Variables
 ard_input = "|"
+wheel_circumference = 1
 started_datetime = datetime.now()
 
 # AI Camera
