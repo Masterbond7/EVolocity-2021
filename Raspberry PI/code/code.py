@@ -166,10 +166,10 @@ def detailedHud():
     def detailedHudUpdate():
         stats.config(fg = "white", bg = "black",
         text="--------------Driving--------------"
-        + "\nSpeed: " + str(usr_accel)
+        + "\nSpeed: " + str(cmp_cart_speed)
         + "\nPower: " + str(cart_on)
         + "\nMode: " + str(cart_mode)
-        + "\nBattery: " + str(random.randint(0, 100)) + "%"
+        + "\nBattery: " + str(cmp_battery_percentage) + "%"
         + "\nRPM: " + str(rpm_motor)
         + "\nSteering Correction: " + str(steering_correction)
         + "\nDistance Value: " + str(distance_value)
