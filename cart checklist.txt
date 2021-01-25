@@ -1,52 +1,65 @@
-AI Camera ❌
-	- Arduino sets algorithm on startup ❌
-	- Huskylens gives target co-ordinates ❌
-	- Arduino converts co-ordinates to angle for steering correction ❌
-	- Arduino points huskylens towards target for extra tracking angle without messing with angle for steering correction ❌
-	- Arduino sends data to Raspberry PI ❌
+Code ❌
+	AI Camera ❌
+		- Arduino sets algorithm on startup ❌
+		- Huskylens gives target co-ordinates ❌
+		- Arduino converts co-ordinates to angle for steering correction ❌
+		- Arduino points huskylens towards target for extra tracking angle without messing with angle for steering correction ❌
+		- Arduino sends data to Raspberry PI ❌
 
-Distance Sensors ❌
-	- Arduino reads data from ultrasonic sensors ❌
-	- Arduino averages data from sensors ❌
-	- Arduino ignores nonsense values from sensors ❌
-	- Arduino sends data to Raspberry PI ❌
+	Distance Sensors ❌
+		- Arduino reads data from ultrasonic sensors ❌
+		- Arduino averages data from sensors ❌
+		- Arduino ignores nonsense values from sensors ❌
+		- Arduino sends data to Raspberry PI ❌
 
-Switch Board ❌
-	- Arduino reads data from on/off switch, manual/auto switch and mode selector ❌
-	- Arduino sends data to Raspberry PI ❌
+	Switch Board ❌
+		- Arduino reads data from on/off switch, manual/auto switch and mode selector ❌
+		- Arduino sends data to Raspberry PI ❌
 
-Gearbox Controller ❌
-	- Arduino starts up and initializes with a default RPM range to keep the motor between while driving ❌
-	- Arduino keeps motor in RPM range while driving by adjusting the CVT gearbox ❌
-	- Arduino always stays ready to receive new RPM range from Raspberry PI for mode changes ❌
-	- Arduino sends RPM data to Raspberry PI ❌
+	Gearbox Controller ❌
+		- Arduino starts up and initializes with a default RPM range to keep the motor between while driving ❌
+		- Arduino keeps motor in RPM range while driving by adjusting the CVT gearbox ❌
+		- Arduino always stays ready to receive new RPM range from Raspberry PI for mode changes ❌
+		- Arduino sends RPM data to Raspberry PI ❌
 
-Temperature Sensors, Current Sensor, GPS Module & G-Force Sensor ❌
-	- Arduino gathers data from the temperature sensors ❌
-	- Arduino gathers data from the current sensor ❌
-	- Arduino gathers data from the GPS sensor ❌
-	- Arduino gathers data from the G-Force sensor ❌
-	- Arduino gathers data from the voltage sensor ❌
-	- Arduino sends data to Raspberry PI ❌
+	Temperature Sensors, Current Sensor, GPS Module & G-Force Sensor ❌
+		- Arduino gathers data from the temperature sensors ❌
+		- Arduino gathers data from the current sensor ❌
+		- Arduino gathers data from the GPS sensor ❌
+		- Arduino gathers data from the G-Force sensor ❌
+		- Arduino gathers data from the voltage sensor ❌
+		- Arduino sends data to Raspberry PI ❌
 
-User Inputs ❌
-	- Arduino gets steering position from steering wheel ❌
-	- Arduino gets accelerator pedal position ❌
-	- Arduino gets brake pedal position ❌
-	- Arduino sends data to Raspberry PI ❌
+	User Inputs ❌
+		- Arduino gets steering position from steering wheel ❌
+		- Arduino gets accelerator pedal position ❌
+		- Arduino gets brake pedal position ❌
+		- Arduino sends data to Raspberry PI ❌
 
-Movement Controller ❌
-	- Arduino always stays ready to get data from Raspberry PI and updates stored variables ❌
-	- Arduino uses stored variable to set wheel angle(stepper output) ❌
-	- Arduino uses stored variable to set accelerator for the motor controller(PWM output) ❌
-	- Arduino uses stored variable to set brake (servo output) ❌ 
+	Movement Controller ❌
+		- Arduino always stays ready to get data from Raspberry PI and updates stored variables ❌
+		- Arduino uses stored variable to set wheel angle(stepper output) ❌
+		- Arduino uses stored variable to set accelerator for the motor controller(PWM output) ❌
+		- Arduino uses stored variable to set brake (servo output) ❌ 
 
-Raspberry PI ⚡
-	- Raspberry PI always stays ready to get data from the arduinos to update the stored variables ⚡
-	- When Raspberry PI detects mode change it sends new varibles to the Gearbox Controller depending on the mode ⚡
-	- Raspberry PI sends Steering Angle, Accelerator Power and Brake Power to the Movement Controller ⚡
-	- Raspberry PI has code to calculate battery percentage from battery voltage ❌
-	- Raspberry PI has code to calculate speed from clutch output RPM and wheel circumference ✔️
-	- Raspberry PI sends all data to a live website that can be accessed by the general public ✔️/❌
-	- Driver HUD with important information for the driver ✔️/❌
-	- Raspberry PI saves all data to a USB stick ⚡
+	Raspberry PI ⚡
+		- Raspberry PI always stays ready to get data from the arduinos to update the stored variables ⚡
+		- When Raspberry PI detects mode change it sends new varibles to the Gearbox Controller depending on the mode ⚡
+		- Raspberry PI sends Steering Angle, Accelerator Power and Brake Power to the Movement Controller ⚡
+		- Raspberry PI has code to calculate battery percentage from battery voltage ❌
+		- Raspberry PI has code to calculate speed from clutch output RPM and wheel circumference ✔️
+		- Raspberry PI sends all data to a live website that can be accessed by the general public ✔️/❌
+		- Driver HUD with important information for the driver ✔️/❌
+		- Raspberry PI saves all data to a USB stick ⚡
+
+Printed Circuit Boards ❌
+	AI Camera ⚡
+		- Design schematic connecting the ethernet port (power) to a 7805(12v DC to 5v DC) ✔️
+		- Design schematic connecting the 7805 to arduino ✔️
+		- Design schematic connecting the ethernet port (data) to the arduino ✔️
+		- Design schematic connecting the Huskylens to the arduino and power ✔️
+		- Design schematic connecting the servo to the arduino and power ✔️
+		- Printed design out ❌
+		- Etched design onto board ❌
+		- Added components to board ❌
+		- Tested board connections and functions ❌
