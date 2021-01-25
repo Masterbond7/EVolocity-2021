@@ -501,34 +501,12 @@ SparkFun Pro Micro
 <busses>
 </busses>
 <nets>
-<net name="N$3" class="0">
-<segment>
-<pinref part="HSK_RX" gate="1" pin="P"/>
-<wire x1="74.93" y1="118.11" x2="74.93" y2="80.01" width="0.1524" layer="91"/>
-<pinref part="B1" gate="G$1" pin="*10"/>
-<wire x1="74.93" y1="80.01" x2="75.2317875" y2="79.7082125" width="0.1524" layer="91"/>
-<wire x1="75.2317875" y1="79.7082125" x2="78.782775" y2="79.7082125" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$4" class="0">
-<segment>
-<pinref part="HSK_TX" gate="1" pin="P"/>
-<wire x1="69.85" y1="118.11" x2="69.85" y2="116.84" width="0.1524" layer="91"/>
-<wire x1="69.85" y1="116.84" x2="72.39" y2="116.84" width="0.1524" layer="91"/>
-<wire x1="72.39" y1="116.84" x2="72.39" y2="80.01" width="0.1524" layer="91"/>
-<pinref part="B1" gate="G$1" pin="*9"/>
-<wire x1="72.39" y1="80.01" x2="72.0882125" y2="79.7082125" width="0.1524" layer="91"/>
-<wire x1="72.0882125" y1="79.7082125" x2="55.922775" y2="79.7082125" width="0.1524" layer="91"/>
-</segment>
-</net>
 <net name="N$5" class="0">
 <segment>
 <pinref part="SRVO_DATA" gate="1" pin="P"/>
-<wire x1="64.77" y1="123.19" x2="64.77" y2="95.25" width="0.1524" layer="91"/>
-<wire x1="64.77" y1="95.25" x2="59.69" y2="95.25" width="0.1524" layer="91"/>
-<pinref part="B1" gate="G$1" pin="*3"/>
-<wire x1="59.69" y1="95.25" x2="59.3882125" y2="94.9482125" width="0.1524" layer="91"/>
-<wire x1="59.3882125" y1="94.9482125" x2="55.922775" y2="94.9482125" width="0.1524" layer="91"/>
+<wire x1="64.77" y1="123.19" x2="64.77" y2="92.4082125" width="0.1524" layer="91"/>
+<pinref part="B1" gate="G$1" pin="4"/>
+<wire x1="64.77" y1="92.4082125" x2="55.922775" y2="92.4082125" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$6" class="0">
@@ -564,23 +542,13 @@ SparkFun Pro Micro
 <junction x="55.88" y="124.46"/>
 </segment>
 </net>
-<net name="N$8" class="0">
-<segment>
-<pinref part="ETH_SDA" gate="1" pin="P"/>
-<wire x1="26.67" y1="111.76" x2="55.88" y2="111.76" width="0.1524" layer="91"/>
-<pinref part="B1" gate="G$1" pin="TXO"/>
-<wire x1="55.88" y1="111.76" x2="55.922775" y2="111.717225" width="0.1524" layer="91"/>
-<wire x1="55.922775" y1="111.717225" x2="55.922775" y2="107.6482125" width="0.1524" layer="91"/>
-</segment>
-</net>
 <net name="N$9" class="0">
 <segment>
 <pinref part="ETH_SCL" gate="1" pin="P"/>
 <wire x1="34.29" y1="109.22" x2="53.34" y2="109.22" width="0.1524" layer="91"/>
-<wire x1="53.34" y1="109.22" x2="53.34" y2="105.41" width="0.1524" layer="91"/>
-<pinref part="B1" gate="G$1" pin="RXI"/>
-<wire x1="53.34" y1="105.41" x2="53.6417875" y2="105.1082125" width="0.1524" layer="91"/>
-<wire x1="53.6417875" y1="105.1082125" x2="55.922775" y2="105.1082125" width="0.1524" layer="91"/>
+<pinref part="B1" gate="G$1" pin="*3"/>
+<wire x1="53.34" y1="109.22" x2="53.34" y2="94.9482125" width="0.1524" layer="91"/>
+<wire x1="53.34" y1="94.9482125" x2="55.922775" y2="94.9482125" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$2" class="0">
@@ -624,6 +592,31 @@ SparkFun Pro Micro
 <junction x="-25.4" y="111.76"/>
 <pinref part="SRVO_+5V" gate="1" pin="P"/>
 <wire x1="59.69" y1="115.57" x2="59.69" y2="118.11" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$1" class="0">
+<segment>
+<pinref part="ETH_SDA" gate="1" pin="P"/>
+<wire x1="26.67" y1="111.76" x2="54.61" y2="111.76" width="0.1524" layer="91"/>
+<pinref part="B1" gate="G$1" pin="2"/>
+<wire x1="54.61" y1="111.76" x2="54.61" y2="97.4882125" width="0.1524" layer="91"/>
+<wire x1="54.61" y1="97.4882125" x2="55.922775" y2="97.4882125" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$3" class="0">
+<segment>
+<pinref part="HSK_TX" gate="1" pin="P"/>
+<pinref part="B1" gate="G$1" pin="TXO"/>
+<wire x1="69.85" y1="118.11" x2="69.85" y2="107.6482125" width="0.1524" layer="91"/>
+<wire x1="69.85" y1="107.6482125" x2="55.922775" y2="107.6482125" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$4" class="0">
+<segment>
+<pinref part="HSK_RX" gate="1" pin="P"/>
+<pinref part="B1" gate="G$1" pin="RXI"/>
+<wire x1="74.93" y1="118.11" x2="74.93" y2="105.1082125" width="0.1524" layer="91"/>
+<wire x1="74.93" y1="105.1082125" x2="55.922775" y2="105.1082125" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
