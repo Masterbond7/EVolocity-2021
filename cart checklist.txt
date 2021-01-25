@@ -26,6 +26,7 @@ Temperature Sensors, Current Sensor, GPS Module & G-Force Sensor ❌
 	- Arduino gathers data from the current sensor ❌
 	- Arduino gathers data from the GPS sensor ❌
 	- Arduino gathers data from the G-Force sensor ❌
+	- Arduino gathers data from the voltage sensor ❌
 	- Arduino sends data to Raspberry PI ❌
 
 User Inputs ❌
@@ -44,6 +45,8 @@ Raspberry PI ❌
 	- Raspberry PI always stays ready to get data from the arduinos to update the stored variables ⚡
 	- When Raspberry PI detects mode change it sends new varibles to the Gearbox Controller depending on the mode ⚡
 	- Raspberry PI sends Steering Angle, Accelerator Power and Brake Power to the Movement Controller ⚡
+	- Raspberry PI has code to calculate battery percentage from battery voltage ❌
+	- Raspberry PI has code to calculate speed from clutch output RPM and wheel circumference ✔️
 	- Raspberry PI sends all data to a live website that can be accessed by the general public ✔️/❌
 	- Driver HUD with important information for the driver ✔️/❌
 	- Raspberry PI saves all data to a USB stick ⚡
