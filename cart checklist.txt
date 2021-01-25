@@ -41,7 +41,7 @@ Movement Controller ❌
 	- Arduino uses stored variable to set accelerator for the motor controller(PWM output) ❌
 	- Arduino uses stored variable to set brake (servo output) ❌ 
 
-Raspberry PI ❌
+Raspberry PI ⚡
 	- Raspberry PI always stays ready to get data from the arduinos to update the stored variables ⚡
 	- When Raspberry PI detects mode change it sends new varibles to the Gearbox Controller depending on the mode ⚡
 	- Raspberry PI sends Steering Angle, Accelerator Power and Brake Power to the Movement Controller ⚡
