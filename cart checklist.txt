@@ -22,7 +22,7 @@ Code ❌
 		- Arduino always stays ready to receive new RPM range from Raspberry PI for mode changes ❌
 		- Arduino sends RPM data to Raspberry PI ❌
 
-	Temperature Sensors, Current Sensor, GPS Module & G-Force Sensor ❌
+	Aux Sensors ❌
 		- Arduino gathers data from the temperature sensors ❌
 		- Arduino gathers data from the current sensor ❌
 		- Arduino gathers data from the GPS sensor ❌
@@ -55,10 +55,97 @@ Code ❌
 Printed Circuit Boards ❌
 	AI Camera ⚡
 		- Design schematic connecting the ethernet port (power) to a 7805(12v DC to 5v DC) ✔️
-		- Design schematic connecting the 7805 to arduino ✔️
+		- Design schematic connecting the 7805/ethernet port (power) to arduino ✔️
 		- Design schematic connecting the ethernet port (data) to the arduino ✔️
 		- Design schematic connecting the Huskylens to the arduino and power ✔️
 		- Design schematic connecting the servo to the arduino and power ✔️
+		- Design board according to schematic ✔️
+		- Printed design out ❌
+		- Etched design onto board ❌
+		- Added components to board ❌
+		- Tested board connections and functions ❌
+
+	Distance Sensors ❌
+		- Design schematic connecting the ethernet port (power) to a 7805 ❌
+		- Design schematic connecting the ethernet port (data) to the arduino ❌
+		- Design schematic connecting power to the arduino ❌
+		- Design schematic connecting up to 3 ultra-sonic sensors to the arduino and power ❌
+		- Design board according to the schematic ❌
+		- Printed design out ❌
+		- Etched design onto board ❌
+		- Added components to board ❌
+		- Tested board connections and functions ❌
+
+	Switch Board ❌ (PLAN MAY NEED REVISING)
+		- Design schematic connecting the ethernet port (power) to a 7805 ❌
+		- Design schematic connecting the ethernet port (data) to the arduino ❌
+		- Design schematic connecting power to the arduino
+		- Design schematic connecting two buttons/switches to the arduino and power ❌
+		- Design schematic connecting radial switch to the arduino and power ❌
+		- Design board according to the schematic ❌
+		- Printed design out ❌
+		- Etched design onto board ❌
+		- Added components to board ❌
+		- Tested board connections and functions ❌
+
+	Gearbox Controller ❌ (PLAN MAY NEED REVISING)
+		- Design schematic connecting the ethernet port (power) to a 7805 ❌
+		- Design schematic connecting the ethernet port (data) to the arduino ❌
+		- Design schematic connecting power to the arduino ❌
+		- Design schematic connecting the 3 RPM sensors to the arduino and power ❌
+		- Design schematic connecting the stepper motor controller to the arduino and power ❌
+		- Design board according to the schematic ❌
+		- Printed design out ❌
+		- Etched design onto board ❌
+		- Added components to board ❌
+		- Tested board connections and functions ❌
+
+	Aux Sensors ❌
+		- Design schematic connecting the ethernet port (power) to a 7805 ❌
+		- Design schematic connecting the ethernet port (data) to the arduino ❌
+		- Design schematic connecting power to the arduino ❌
+		- Design schematic connecting the temperature sensors to the arduino and power ❌
+		- Design schematic connecting the current sensor to the arduino and power ❌
+		- Design schematic connecting the GPS sensor to the arduino and power ❌
+		- Design schematic connecting the G-Force sensor to the arduino and power ❌
+		- Design schematic connecting the voltage sensor to the arduino and power ❌
+		- Design board according to the schematic ❌
+		- Printed design out ❌
+		- Etched design onto board ❌
+		- Added components to board ❌
+		- Tested board connections and functions ❌
+
+	User Inputs ❌
+		- Design schematic connecting the ethernet port (power) to a 7805 ❌
+		- Design schematic connecting the power to the arduino ❌
+		- Design schematic connecting the steering wheel to the arduino and power ❌
+		- Design schematic connecting the brake pedal to the arduino and power ❌
+		- Design schematic connecting the accelerator pedal to the arduino and power ❌
+		- Design board according to the schematic ❌
+		- Printed design out ❌
+		- Etched design onto board ❌
+		- Added components to board ❌
+		- Tested board connections and functions ❌
+
+	Movement Controller ❌ (PLAN MAY NEED REVISING)
+		- Design schematic connecting the ethernet port (power) to a 7805 ❌
+		- Design schematic connecting the ethernet port (power) to a 7808 ❌
+		- Design schematic connecting the power to the arduino ❌
+		- Design schematic connecting the motor controller to the arduino and power ❌
+		- Design schematic connecting the brake servo to the arduino and power ❌
+		- Design schematic connecting the steering servo/stepper controller to the arduino and power ❌
+		- Design board according to the schematic ❌
+		- Printed design out ❌
+		- Etched design onto board ❌
+		- Added components to board ❌
+		- Tested board connections and functions ❌
+
+	Motherboard/Power Supply ❌ (PLAN MAY NEED REVISING)
+		- Design schematic connecting the 48v batteries to the motherboard ❌
+		- Design schematic connecting the 48v power to a 48v>12v power converter ❌
+		- Design schematic connecting ~12 ethernet ports to the 12v power ❌
+		- Design schematic linking the SDA and SCL of the ethernet ports together ❌
+		- Design board according to the schematic ❌
 		- Printed design out ❌
 		- Etched design onto board ❌
 		- Added components to board ❌
