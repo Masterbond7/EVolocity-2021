@@ -15,14 +15,14 @@ wheel_circumference = 1                 # in meters
 started_datetime = datetime.now()
 
 # AI Camera
-steering_correction = 0
+steering_correction = 0#
 
 # Distance Sensors
-distance_value = 0
+distance_value = 0#
 
 # Switch Board
-cart_on = 0
-cart_auto = 0
+cart_on = 0#
+cart_auto = 0#
 cart_mode = 1 # 0 = Auto, 1 = Sport, 2 = Economy
 cart_mode_txt = "SPORT"
 
@@ -32,22 +32,22 @@ rpm_cvt_out = 0
 rpm_clutch_out = 0
 
 # Aux Sensors
-aux_temp_motor = 0
-aux_temp_bat_1 = 0
-aux_temp_bat_2 = 0
-aux_temp_fuse = 0
-aux_temp_motor_cont = 0
-aux_temp_brake_FL = 0
-aux_temp_brake_FR = 0
-aux_temp_brake_BL = 0
-aux_temp_brake_BR = 0
-aux_temp_rpi = 0
+aux_temp_motor = 0#
+aux_temp_bat_1 = 0#
+aux_temp_bat_2 = 0#
+aux_temp_fuse = 0#
+aux_temp_motor_cont = 0#
+aux_temp_brake_FL = 0#
+aux_temp_brake_FR = 0#
+aux_temp_brake_BL = 0#
+aux_temp_brake_BR = 0#
+aux_temp_rpi = 0#
 aux_cur_bat = 0
-aux_gps_lon = 0
-aux_gps_lat = 0
-aux_g_force_x = 0
-aux_g_force_y = 0
-aux_g_force_z = 0
+aux_gps_lon = 0#
+aux_gps_lat = 0#
+aux_g_force_x = 0#
+aux_g_force_y = 0#
+aux_g_force_z = 0#
 aux_battery_voltmeter = 0
 
 # User Inputs
@@ -180,7 +180,7 @@ def basicHud():
 
     # Setting Up Information Label
     infoLabel = Label(basicHudWindow, text="Speed: ", font=("Helvetica", 18))
-    infoLabel.place(x = 660, y = 150)
+    infoLabel.place(x = 653, y = 150)
 
     # Setting Up Engine Check Light
     engineCheckImage = ImageTk.PhotoImage(Image.open("hudImages/engineCheckFalse.jpg"))
@@ -219,9 +219,12 @@ def detailedHud():
         + "\nPower: " + str(cart_on)
         + "\nMode: " + str(cart_mode)
         + "\nBattery: " + str(cmp_battery_percentage) + "%"
-        + "\nRPM: " + str(rpm_motor)
+        + "\nClutch RPM: " + str(rpm_clutch_out)
+        + "\nMotor RPM: " + str(rpm_motor)
+        + "\nGearbox RPM: " + str(rpm_cvt_out)
         + "\nSteering Correction: " + str(steering_correction)
         + "\nDistance Value: " + str(distance_value)
+        + "\n\n---------------------------------------"
         )
 
         stats2.config(fg = "white", bg = "black",
@@ -231,11 +234,12 @@ def detailedHud():
         + "\nBattery 2 Temp: " + str(aux_temp_bat_2)
         + "\nFuse Temperature: " + str(aux_temp_fuse)
         + "\nMotor Controller Temp: " + str(aux_temp_motor_cont)
-        + "\nFront Left Brake Temp: " + str(aux_temp_brake_FL)
-        + "\nFront Right Brake Temp: " + str(aux_temp_brake_FR)
-        + "\nBack Left Brake Temp: " + str(aux_temp_brake_BL)
-        + "\nBack Right Brake Temp: " + str(aux_temp_brake_BR)
+        + "\nFront-Left Brake Temp: " + str(aux_temp_brake_FL)
+        + "\nFront-Right Brake Temp: " + str(aux_temp_brake_FR)
+        + "\nBack-Left Brake Temp: " + str(aux_temp_brake_BL)
+        + "\nBack-Right Brake Temp: " + str(aux_temp_brake_BR)
         + "\nRaspberry Pi Temp: " + str(aux_temp_rpi)
+        + "\n---------------------------------------"
         )
 
 
@@ -245,6 +249,10 @@ def detailedHud():
         + "\nLatitude: " + str(aux_gps_lat)
         + "\n---------Other Sensors---------"
         + "\nDistance Value: " + str(distance_value)
+        + "\nG-Force X: " + str(aux_g_force_x)
+        + "\nG-Force Y: " + str(aux_g_force_y)
+        + "\nG-Force Z: " + str(aux_g_force_z)#
+       	+ "\n\n\n\n---------------------------------------"
         )
 
         # Re-Calling This Function To Form A Infinate Update Loop
