@@ -540,6 +540,7 @@ SparkFun Pro Micro
 <wire x1="55.88" y1="124.46" x2="55.88" y2="123.19" width="0.1524" layer="91"/>
 <wire x1="24.13" y1="124.46" x2="55.88" y2="124.46" width="0.1524" layer="91"/>
 <junction x="55.88" y="124.46"/>
+<junction x="24.13" y="104.14"/>
 </segment>
 </net>
 <net name="N$9" class="0">
