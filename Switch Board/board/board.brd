@@ -142,10 +142,10 @@
 </layers>
 <board>
 <plain>
-<wire x1="0" y1="0" x2="100" y2="0" width="0" layer="20"/>
-<wire x1="100" y1="0" x2="100" y2="80" width="0" layer="20"/>
-<wire x1="100" y1="80" x2="0" y2="80" width="0" layer="20"/>
-<wire x1="0" y1="80" x2="0" y2="0" width="0" layer="20"/>
+<wire x1="15.24" y1="17.78" x2="53.01" y2="17.78" width="0" layer="20"/>
+<wire x1="53.01" y1="17.78" x2="53.01" y2="67.3" width="0" layer="20"/>
+<wire x1="53.01" y1="67.3" x2="15.24" y2="67.3" width="0" layer="20"/>
+<wire x1="15.24" y1="67.3" x2="15.24" y2="17.78" width="0" layer="20"/>
 </plain>
 <libraries>
 <library name="wirepad" urn="urn:adsk.eagle:library:412">
