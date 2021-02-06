@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="9.2.2">
+<eagle version="9.6.2">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -373,24 +373,23 @@ SparkFun Pro Micro
 <variantdefs>
 </variantdefs>
 <classes>
-<class number="0" name="default" width="1.25" drill="0">
-<clearance class="0" value="0.5"/>
+<class number="0" name="default" width="0" drill="0">
 </class>
 </classes>
 <parts>
 <part name="B1" library="SparkFun-Boards" library_urn="urn:adsk.eagle:library:509" deviceset="SPARKFUN_PRO_MICRO" device="" package3d_urn="urn:adsk.eagle:package:37326/1"/>
-<part name="D1-1" library="wirepad" library_urn="urn:adsk.eagle:library:412" deviceset="2,15/1,0" device="" package3d_urn="urn:adsk.eagle:package:30831/1"/>
-<part name="D1-2" library="wirepad" library_urn="urn:adsk.eagle:library:412" deviceset="2,15/1,0" device="" package3d_urn="urn:adsk.eagle:package:30831/1"/>
-<part name="D1-3" library="wirepad" library_urn="urn:adsk.eagle:library:412" deviceset="2,15/1,0" device="" package3d_urn="urn:adsk.eagle:package:30831/1"/>
-<part name="D1-4" library="wirepad" library_urn="urn:adsk.eagle:library:412" deviceset="2,15/1,0" device="" package3d_urn="urn:adsk.eagle:package:30831/1"/>
-<part name="D2-1" library="wirepad" library_urn="urn:adsk.eagle:library:412" deviceset="2,15/1,0" device="" package3d_urn="urn:adsk.eagle:package:30831/1"/>
-<part name="D2-2" library="wirepad" library_urn="urn:adsk.eagle:library:412" deviceset="2,15/1,0" device="" package3d_urn="urn:adsk.eagle:package:30831/1"/>
-<part name="D2-3" library="wirepad" library_urn="urn:adsk.eagle:library:412" deviceset="2,15/1,0" device="" package3d_urn="urn:adsk.eagle:package:30831/1"/>
-<part name="D2-4" library="wirepad" library_urn="urn:adsk.eagle:library:412" deviceset="2,15/1,0" device="" package3d_urn="urn:adsk.eagle:package:30831/1"/>
-<part name="D3-1" library="wirepad" library_urn="urn:adsk.eagle:library:412" deviceset="2,15/1,0" device="" package3d_urn="urn:adsk.eagle:package:30831/1"/>
-<part name="D3-2" library="wirepad" library_urn="urn:adsk.eagle:library:412" deviceset="2,15/1,0" device="" package3d_urn="urn:adsk.eagle:package:30831/1"/>
-<part name="D3-3" library="wirepad" library_urn="urn:adsk.eagle:library:412" deviceset="2,15/1,0" device="" package3d_urn="urn:adsk.eagle:package:30831/1"/>
-<part name="D3-4" library="wirepad" library_urn="urn:adsk.eagle:library:412" deviceset="2,15/1,0" device="" package3d_urn="urn:adsk.eagle:package:30831/1"/>
+<part name="PAD1" library="wirepad" library_urn="urn:adsk.eagle:library:412" deviceset="2,15/1,0" device="" package3d_urn="urn:adsk.eagle:package:30831/1"/>
+<part name="PAD2" library="wirepad" library_urn="urn:adsk.eagle:library:412" deviceset="2,15/1,0" device="" package3d_urn="urn:adsk.eagle:package:30831/1"/>
+<part name="PAD3" library="wirepad" library_urn="urn:adsk.eagle:library:412" deviceset="2,15/1,0" device="" package3d_urn="urn:adsk.eagle:package:30831/1"/>
+<part name="PAD4" library="wirepad" library_urn="urn:adsk.eagle:library:412" deviceset="2,15/1,0" device="" package3d_urn="urn:adsk.eagle:package:30831/1"/>
+<part name="PAD5" library="wirepad" library_urn="urn:adsk.eagle:library:412" deviceset="2,15/1,0" device="" package3d_urn="urn:adsk.eagle:package:30831/1"/>
+<part name="PAD6" library="wirepad" library_urn="urn:adsk.eagle:library:412" deviceset="2,15/1,0" device="" package3d_urn="urn:adsk.eagle:package:30831/1"/>
+<part name="PAD7" library="wirepad" library_urn="urn:adsk.eagle:library:412" deviceset="2,15/1,0" device="" package3d_urn="urn:adsk.eagle:package:30831/1"/>
+<part name="PAD8" library="wirepad" library_urn="urn:adsk.eagle:library:412" deviceset="2,15/1,0" device="" package3d_urn="urn:adsk.eagle:package:30831/1"/>
+<part name="PAD9" library="wirepad" library_urn="urn:adsk.eagle:library:412" deviceset="2,15/1,0" device="" package3d_urn="urn:adsk.eagle:package:30831/1"/>
+<part name="PAD10" library="wirepad" library_urn="urn:adsk.eagle:library:412" deviceset="2,15/1,0" device="" package3d_urn="urn:adsk.eagle:package:30831/1"/>
+<part name="PAD11" library="wirepad" library_urn="urn:adsk.eagle:library:412" deviceset="2,15/1,0" device="" package3d_urn="urn:adsk.eagle:package:30831/1"/>
+<part name="PAD12" library="wirepad" library_urn="urn:adsk.eagle:library:412" deviceset="2,15/1,0" device="" package3d_urn="urn:adsk.eagle:package:30831/1"/>
 <part name="ETH_SDA" library="wirepad" library_urn="urn:adsk.eagle:library:412" deviceset="2,15/1,0" device="" package3d_urn="urn:adsk.eagle:package:30831/1"/>
 <part name="ETH_SCL" library="wirepad" library_urn="urn:adsk.eagle:library:412" deviceset="2,15/1,0" device="" package3d_urn="urn:adsk.eagle:package:30831/1"/>
 <part name="ETH_GND(3)" library="wirepad" library_urn="urn:adsk.eagle:library:412" deviceset="2,15/1,0" device="" package3d_urn="urn:adsk.eagle:package:30831/1"/>
@@ -409,51 +408,51 @@ SparkFun Pro Micro
 <attribute name="NAME" x="12.7" y="31.242" size="1.778" layer="95"/>
 <attribute name="VALUE" x="12.7" y="-5.08" size="1.778" layer="96"/>
 </instance>
-<instance part="D1-1" gate="1" x="50.8" y="27.94" smashed="yes" rot="R180">
+<instance part="PAD1" gate="1" x="50.8" y="27.94" smashed="yes" rot="R180">
 <attribute name="NAME" x="64.643" y="28.6258" size="1.778" layer="95" rot="R180"/>
 <attribute name="VALUE" x="51.943" y="31.242" size="1.778" layer="96" rot="R180"/>
 </instance>
-<instance part="D1-2" gate="1" x="50.8" y="25.4" smashed="yes" rot="R180">
+<instance part="PAD2" gate="1" x="50.8" y="25.4" smashed="yes" rot="R180">
 <attribute name="NAME" x="64.643" y="26.0858" size="1.778" layer="95" rot="R180"/>
 <attribute name="VALUE" x="51.943" y="28.702" size="1.778" layer="96" rot="R180"/>
 </instance>
-<instance part="D1-3" gate="1" x="50.8" y="22.86" smashed="yes" rot="R180">
+<instance part="PAD3" gate="1" x="50.8" y="22.86" smashed="yes" rot="R180">
 <attribute name="NAME" x="64.643" y="23.5458" size="1.778" layer="95" rot="R180"/>
 <attribute name="VALUE" x="51.943" y="26.162" size="1.778" layer="96" rot="R180"/>
 </instance>
-<instance part="D1-4" gate="1" x="50.8" y="20.32" smashed="yes" rot="R180">
+<instance part="PAD4" gate="1" x="50.8" y="20.32" smashed="yes" rot="R180">
 <attribute name="NAME" x="64.643" y="21.0058" size="1.778" layer="95" rot="R180"/>
 <attribute name="VALUE" x="51.943" y="23.622" size="1.778" layer="96" rot="R180"/>
 </instance>
-<instance part="D2-1" gate="1" x="50.8" y="15.24" smashed="yes" rot="R180">
+<instance part="PAD5" gate="1" x="50.8" y="15.24" smashed="yes" rot="R180">
 <attribute name="NAME" x="64.643" y="15.9258" size="1.778" layer="95" rot="R180"/>
 <attribute name="VALUE" x="51.943" y="18.542" size="1.778" layer="96" rot="R180"/>
 </instance>
-<instance part="D2-2" gate="1" x="50.8" y="12.7" smashed="yes" rot="R180">
+<instance part="PAD6" gate="1" x="50.8" y="12.7" smashed="yes" rot="R180">
 <attribute name="NAME" x="64.643" y="13.3858" size="1.778" layer="95" rot="R180"/>
 <attribute name="VALUE" x="51.943" y="16.002" size="1.778" layer="96" rot="R180"/>
 </instance>
-<instance part="D2-3" gate="1" x="50.8" y="10.16" smashed="yes" rot="R180">
+<instance part="PAD7" gate="1" x="50.8" y="10.16" smashed="yes" rot="R180">
 <attribute name="NAME" x="64.643" y="10.8458" size="1.778" layer="95" rot="R180"/>
 <attribute name="VALUE" x="51.943" y="13.462" size="1.778" layer="96" rot="R180"/>
 </instance>
-<instance part="D2-4" gate="1" x="50.796359375" y="7.264390625" smashed="yes" rot="R180">
+<instance part="PAD8" gate="1" x="50.796359375" y="7.264390625" smashed="yes" rot="R180">
 <attribute name="NAME" x="64.639359375" y="7.950190625" size="1.778" layer="95" rot="R180"/>
 <attribute name="VALUE" x="51.939359375" y="10.566390625" size="1.778" layer="96" rot="R180"/>
 </instance>
-<instance part="D3-1" gate="1" x="50.8" y="2.54" smashed="yes" rot="R180">
+<instance part="PAD9" gate="1" x="50.8" y="2.54" smashed="yes" rot="R180">
 <attribute name="NAME" x="64.643" y="3.2258" size="1.778" layer="95" rot="R180"/>
 <attribute name="VALUE" x="51.943" y="5.842" size="1.778" layer="96" rot="R180"/>
 </instance>
-<instance part="D3-2" gate="1" x="50.8" y="0" smashed="yes" rot="R180">
+<instance part="PAD10" gate="1" x="50.8" y="0" smashed="yes" rot="R180">
 <attribute name="NAME" x="64.643" y="0.6858" size="1.778" layer="95" rot="R180"/>
 <attribute name="VALUE" x="51.943" y="3.302" size="1.778" layer="96" rot="R180"/>
 </instance>
-<instance part="D3-3" gate="1" x="50.8" y="-2.54" smashed="yes" rot="R180">
+<instance part="PAD11" gate="1" x="50.8" y="-2.54" smashed="yes" rot="R180">
 <attribute name="NAME" x="64.643" y="-1.8542" size="1.778" layer="95" rot="R180"/>
 <attribute name="VALUE" x="51.943" y="0.762" size="1.778" layer="96" rot="R180"/>
 </instance>
-<instance part="D3-4" gate="1" x="50.8" y="-5.08" smashed="yes" rot="R180">
+<instance part="PAD12" gate="1" x="50.8" y="-5.08" smashed="yes" rot="R180">
 <attribute name="NAME" x="64.643" y="-4.3942" size="1.778" layer="95" rot="R180"/>
 <attribute name="VALUE" x="51.943" y="-1.778" size="1.778" layer="96" rot="R180"/>
 </instance>
@@ -495,13 +494,13 @@ SparkFun Pro Micro
 <nets>
 <net name="N$2" class="0">
 <segment>
-<pinref part="D1-4" gate="1" pin="P"/>
+<pinref part="PAD4" gate="1" pin="P"/>
 <wire x1="48.26" y1="20.32" x2="53.34" y2="20.32" width="0.1524" layer="91"/>
 <wire x1="53.34" y1="20.32" x2="53.34" y2="7.264390625" width="0.1524" layer="91"/>
-<pinref part="D2-4" gate="1" pin="P"/>
+<pinref part="PAD8" gate="1" pin="P"/>
 <wire x1="53.34" y1="7.264390625" x2="48.256359375" y2="7.264390625" width="0.1524" layer="91"/>
 <wire x1="53.34" y1="7.264390625" x2="53.34" y2="-5.08" width="0.1524" layer="91"/>
-<pinref part="D3-4" gate="1" pin="P"/>
+<pinref part="PAD12" gate="1" pin="P"/>
 <wire x1="53.34" y1="-5.08" x2="48.26" y2="-5.08" width="0.1524" layer="91"/>
 <pinref part="B1" gate="G$1" pin="GND@2"/>
 <wire x1="33.02" y1="25.4" x2="40.64" y2="25.4" width="0.1524" layer="91"/>
@@ -512,25 +511,27 @@ SparkFun Pro Micro
 </net>
 <net name="N$3" class="0">
 <segment>
-<pinref part="D3-1" gate="1" pin="P"/>
+<pinref part="PAD9" gate="1" pin="P"/>
 <wire x1="48.26" y1="2.54" x2="55.88" y2="2.54" width="0.1524" layer="91"/>
-<wire x1="55.88" y1="2.54" x2="55.88" y2="15.24" width="0.1524" layer="91"/>
+<wire x1="55.88" y1="2.54" x2="55.88" y2="27.94" width="0.1524" layer="91"/>
 <pinref part="B1" gate="G$1" pin="VCC"/>
-<wire x1="55.88" y1="15.24" x2="55.88" y2="27.94" width="0.1524" layer="91"/>
 <wire x1="33.02" y1="20.32" x2="35.56" y2="20.32" width="0.1524" layer="91"/>
 <wire x1="35.56" y1="20.32" x2="35.56" y2="27.94" width="0.1524" layer="91"/>
-<pinref part="D1-1" gate="1" pin="P"/>
+<pinref part="PAD1" gate="1" pin="P"/>
 <wire x1="48.26" y1="27.94" x2="55.88" y2="27.94" width="0.1524" layer="91"/>
 <wire x1="35.56" y1="27.94" x2="48.26" y2="27.94" width="0.1524" layer="91"/>
 <junction x="48.26" y="27.94"/>
-<pinref part="D2-1" gate="1" pin="P"/>
+</segment>
+</net>
+<net name="N$4" class="0">
+<segment>
+<pinref part="PAD5" gate="1" pin="P"/>
 <wire x1="48.26" y1="15.24" x2="55.88" y2="15.24" width="0.1524" layer="91"/>
-<junction x="55.88" y="15.24"/>
 </segment>
 </net>
 <net name="N$5" class="0">
 <segment>
-<pinref part="D1-3" gate="1" pin="P"/>
+<pinref part="PAD3" gate="1" pin="P"/>
 <wire x1="48.26" y1="22.86" x2="45.72" y2="22.86" width="0.1524" layer="91"/>
 <wire x1="45.72" y1="22.86" x2="45.72" y2="15.24" width="0.1524" layer="91"/>
 <pinref part="B1" gate="G$1" pin="A2"/>
@@ -539,7 +540,7 @@ SparkFun Pro Micro
 </net>
 <net name="N$6" class="0">
 <segment>
-<pinref part="D1-2" gate="1" pin="P"/>
+<pinref part="PAD2" gate="1" pin="P"/>
 <wire x1="48.26" y1="25.4" x2="43.18" y2="25.4" width="0.1524" layer="91"/>
 <wire x1="43.18" y1="25.4" x2="43.18" y2="17.78" width="0.1524" layer="91"/>
 <pinref part="B1" gate="G$1" pin="A3"/>
@@ -548,21 +549,21 @@ SparkFun Pro Micro
 </net>
 <net name="N$7" class="0">
 <segment>
-<pinref part="D2-2" gate="1" pin="P"/>
+<pinref part="PAD6" gate="1" pin="P"/>
 <pinref part="B1" gate="G$1" pin="A1"/>
 <wire x1="48.26" y1="12.7" x2="33.02" y2="12.7" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$8" class="0">
 <segment>
-<pinref part="D2-3" gate="1" pin="P"/>
+<pinref part="PAD7" gate="1" pin="P"/>
 <pinref part="B1" gate="G$1" pin="A0"/>
 <wire x1="48.26" y1="10.16" x2="33.02" y2="10.16" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$9" class="0">
 <segment>
-<pinref part="D3-2" gate="1" pin="P"/>
+<pinref part="PAD10" gate="1" pin="P"/>
 <wire x1="48.26" y1="0" x2="45.72" y2="0" width="0.1524" layer="91"/>
 <wire x1="45.72" y1="0" x2="45.72" y2="7.62" width="0.1524" layer="91"/>
 <pinref part="B1" gate="G$1" pin="13(SCK)"/>
@@ -571,7 +572,7 @@ SparkFun Pro Micro
 </net>
 <net name="N$10" class="0">
 <segment>
-<pinref part="D3-3" gate="1" pin="P"/>
+<pinref part="PAD11" gate="1" pin="P"/>
 <wire x1="48.26" y1="-2.54" x2="43.18" y2="-2.54" width="0.1524" layer="91"/>
 <wire x1="43.18" y1="-2.54" x2="43.18" y2="5.08" width="0.1524" layer="91"/>
 <pinref part="B1" gate="G$1" pin="12(MISO)"/>
