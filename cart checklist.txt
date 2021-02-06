@@ -99,13 +99,13 @@ Printed Circuit Boards ❌
 		- Tested board connections and functions ❌
 
 	Aux Sensors ❌
-		- Design schematic connecting the ethernet port (power) to a 7805 ❌
-		- Design schematic connecting the ethernet port (data) to the arduino ❌
-		- Design schematic connecting power to the arduino ❌
-		- Design schematic connecting the temperature sensors to the arduino and power ❌
-		- Design schematic connecting the current sensor to the arduino and power ❌
-		- Design schematic connecting the GPS sensor to the arduino and power ❌
-		- Design schematic connecting the G-Force sensor to the arduino and power ❌
+		- Design schematic connecting the ethernet port (power) to a 7805 ✔️
+		- Design schematic connecting the ethernet port (data) to the arduino ✔️
+		- Design schematic connecting power to the arduino ✔️
+		- Design schematic connecting the temperature sensors to the arduino and power ✔️
+		- Design schematic connecting the current sensor to the arduino and power ✔️
+		- Design schematic connecting the GPS sensor to the arduino and power ✔️
+		- Design schematic connecting the G-Force sensor to the arduino and power ✔️
 		- Design schematic connecting the voltage sensor to the arduino and power ❌
 		- Design board according to the schematic ❌
 		- Printed design out ❌
