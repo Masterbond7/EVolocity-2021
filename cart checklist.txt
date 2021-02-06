@@ -65,12 +65,12 @@ Printed Circuit Boards ❌
 		- Added components to board ❌
 		- Tested board connections and functions ❌
 
-	Distance Sensors ❌
-		- Design schematic connecting the ethernet port (power) to a 7805 ❌
-		- Design schematic connecting the ethernet port (data) to the arduino ❌
-		- Design schematic connecting power to the arduino ❌
-		- Design schematic connecting up to 3 ultra-sonic sensors to the arduino and power ❌
-		- Design board according to the schematic ❌
+	Distance Sensors ⚡
+		- Design schematic connecting the ethernet port (power) to a 7805 -
+		- Design schematic connecting the ethernet port (data) to the arduino ✔️
+		- Design schematic connecting power to the arduino ✔️
+		- Design schematic connecting up to 3 ultra-sonic sensors to the arduino and power ✔️
+		- Design board according to the schematic ✔️
 		- Printed design out ❌
 		- Etched design onto board ❌
 		- Added components to board ❌
