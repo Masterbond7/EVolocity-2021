@@ -1,3 +1,16 @@
+IMPORTANT ❌
+	- Voltage regulator parts (8V @ 5A)❌
+	- Power distribution board ❌
+	- High voltage board ❌
+	- Servo board ❌
+	- Front axle bearing covers ❌
+	- Drive shaft ❌
+	- Remake of the front suspension bars ❌
+	- Brake pedal ❌
+	- Accelerator pedal ❌	
+	- Master cylinder mounting bracket ❌
+	- Master cylinder push rod ❌
+
 Code ❌
 	AI Camera ❌
 		- Arduino sets algorithm on startup ❌
