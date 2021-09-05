@@ -1,7 +1,7 @@
 {
     "Header": {
         "Comment": "All values are metric (mm)",
-        "CreationDate": "2021-01-25T09:18:25Z",
+        "CreationDate": "2021-08-26T04:03:25Z",
         "GenerationSoftware": {
             "Application": "EAGLE",
             "Vendor": "Autodesk",
@@ -13,12 +13,12 @@
         "BoardThickness": 1.57,
         "LayerNumber": 2,
         "Name": {
-            "ProjectId": "board"
+            "ProjectId": "huskylens_servo-eth"
         },
         "Owner": "James Slough <quintinslough@gmail.com>",
         "Size": {
-            "X": 45.39,
-            "Y": 77.46
+            "X": 65.71,
+            "Y": 90.16
         }
     }
 }
