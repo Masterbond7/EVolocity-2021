@@ -12,8 +12,8 @@ void setup() {
     pinMode(10, INPUT_PULLUP); // Right paddle
     pinMode(11, INPUT_PULLUP); // A
     pinMode(12, INPUT_PULLUP); // Left paddle
-    pinMode(20, INPUT_PULLUP); // X
-    pinMode(21, INPUT_PULLUP); // Y
+    pinMode(A6, INPUT); // X
+    pinMode(A7, INPUT); // Y
     pinMode(17, INPUT_PULLUP); // X-Box button
 
     pinMode(16, OUTPUT); // Power bulb
@@ -37,8 +37,8 @@ void loop() {
     
     if (digitalRead(9) == LOW) {Serial.print("B, ");}  
     if (digitalRead(11) == LOW) {Serial.print("A, ");} 
-    if (digitalRead(20) == LOW) {Serial.print("X, ");} 
-    if (digitalRead(21) == LOW) {Serial.print("Y, ");} 
+    if (analogRead(A6) < 512) {Serial.print("X, ");} 
+    if (analogRead(A7) < 512) {Serial.print("Y, ");} 
 
     if (digitalRead(12) == LOW) {Serial.print("Left padle, ");} 
     if (digitalRead(10) == LOW) {Serial.print("Right padle, ");} 
