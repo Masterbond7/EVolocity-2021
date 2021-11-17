@@ -1,5 +1,9 @@
+#include <Wire.h>
+
 void setup() {
     Serial.begin(9600);
+    Wire.begin(17);
+    Wire.onRequest(sendData);
 
     pinMode(2, INPUT_PULLUP); // D-pad up
     pinMode(3, INPUT_PULLUP); // D-pad left
@@ -46,4 +50,42 @@ void loop() {
     if (digitalRead(17) == LOW) {Serial.print("X-Box button, ");} 
 
     Serial.println(analogRead(A0));
+}
+
+byte steering;
+union u_tag {
+    unsigned int Int;
+    byte Byte[2];
+} wheelData;
+byte finalBytes[3];
+
+void sendData() {
+    steering = analogRead(A0) / 4; // Get steering angle between 0-255
+
+    wheelData.Int = 0;
+    if (digitalRead(2) == LOW) {wheelData.Int += 1;} //D-Pad Up
+    if (digitalRead(3) == LOW) {wheelData.Int += 2;} //D-Pad Down 
+    if (digitalRead(4) == LOW) {wheelData.Int += 4;} //D-Pad Right
+    if (digitalRead(5) == LOW) {wheelData.Int += 8;} //D-Pad down
+    
+    if (digitalRead(6) == LOW) {wheelData.Int += 16;} //UNDEFINED 1
+    if (digitalRead(7) == LOW) {wheelData.Int += 32;} //UNDEFINED 2
+    if (digitalRead(8) == LOW) {wheelData.Int += 64;} //UNDEFINED 3
+    
+    if (digitalRead(9) == LOW) {wheelData.Int += 128;}  // B
+    if (digitalRead(11) == LOW) {wheelData.Int += 256;} // A
+    if (analogRead(A6) < 512) {wheelData.Int += 512;}   // X
+    if (analogRead(A7) < 512) {wheelData.Int += 1024;}   // Y
+
+    if (digitalRead(12) == LOW) {wheelData.Int += 2048;} //Left paddle
+    if (digitalRead(10) == LOW) {wheelData.Int += 4096;} //Right paddle
+
+    if (digitalRead(17) == LOW) {wheelData.Int += 8192;} //X-Box button
+
+    // TODO: Optimize this
+    finalBytes[0] = steering;
+    finalBytes[1] = wheelData.Byte[0];
+    finalBytes[2] = wheelData.Byte[1];
+    
+    Wire.write(finalBytes, 3);
 }
