@@ -64,7 +64,7 @@ void sendData() {
 
     wheelData.Int = 0;
     if (digitalRead(2) == LOW) {wheelData.Int += 1;} //D-Pad Up
-    if (digitalRead(3) == LOW) {wheelData.Int += 2;} //D-Pad Down 
+    if (digitalRead(3) == LOW) {wheelData.Int += 2;} //D-Pad Left 
     if (digitalRead(4) == LOW) {wheelData.Int += 4;} //D-Pad Right
     if (digitalRead(5) == LOW) {wheelData.Int += 8;} //D-Pad down
     
