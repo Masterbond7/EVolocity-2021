@@ -4,7 +4,7 @@ void setup() {
     Serial.begin(9600);
     Wire.begin(17);
     Wire.onRequest(sendData);
-
+ 
     pinMode(2, INPUT_PULLUP); // D-pad up
     pinMode(3, INPUT_PULLUP); // D-pad left
     pinMode(4, INPUT_PULLUP); // D-pad right

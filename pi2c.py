@@ -7,9 +7,10 @@ pre_data = -1
 trans_amm = 0
 
 while True:
+	"""# Steering wheel
 	try:
-		data = bus.read_i2c_block_data(address, 0x0B, 3)
-		button_bytes = ((data[2]<<8)+data[1]) #.to_bytes(2, byteorder="big")
+		steering_data = bus.read_i2c_block_data(0x11, 0x0B, 3) # Steering, 0x0B, 3 bytes
+		button_bytes = ((steering_data[2]<<8)+steering_data[1]) #.to_bytes(2, byteorder="big")
 		buttons_pushed = []
 
 		# Convert button bytes to buttons
@@ -29,7 +30,7 @@ while True:
 		if button_bytes >= 1: button_bytes -= 1; buttons_pushed.append("D-Pad Up")
 
 		buttons_pushed = ", ".join(buttons_pushed)
-		angle=int(data[0]/(256/90)*-1)+45
+		angle=int(steering_data[0]/(256/90)*-1)+45
 		if angle == -44: continue
 		#angle-=1 #maybe
 
@@ -38,11 +39,21 @@ while True:
 		#time.sleep(50/1000)
 		time.sleep(35/1000)
 
-		if (not pre_data == data[0]) and (not int(int(pre_data)*(180/256)) == int(int(data[0])*(180/256))): 
-			bus.write_byte(0x12,int(int(data[0])*(180/256)))
+		if (not pre_data == steering_data[0]) and (not int(int(pre_data)*(180/256)) == int(int(steering_data[0])*(180/256))): 
+			bus.write_byte(0x12,int(int(steering_data[0])*(180/256))) # Steering servo
 			trans_amm += 1
-		pre_data = data[0]
+		pre_data = steering_data[0]
 
 	except Exception as e:
 		print("Oh no, anyway.");time.sleep(0.05)
-		print(e)
+		print(e)"""
+		
+	
+	
+	# Pedals
+	try:
+		pedal_data = bus.read_i2c_block_data(0x13, 0x0B, 3)
+		print("Accelerator: {0}, Brake: {1}, Handbrake: {2}".format(int(pedal_data[0]), int(pedal_data[1]), int(pedal_data[2])))
+		time.sleep(35/1000)
+	except:
+		print("Cock pedals");time.sleep(0.05)
