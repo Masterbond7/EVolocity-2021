@@ -3,7 +3,8 @@ import time
 
 bus = smbus.SMBus(1)
 address = 0x11
-pre_data = []
+pre_data = -1
+trans_amm = 0
 
 while True:
 	try:
@@ -32,11 +33,14 @@ while True:
 		if angle == -44: continue
 		#angle-=1 #maybe
 
-		print("Steering angle: {0}, Buttons pushed: {1}".format((angle), buttons_pushed)) #steer,button1,button2))
+		print("Steering angle: {0}, Buttons pushed: {1}, Signals Transmitted: {2}".format((angle), buttons_pushed, trans_amm)) #steer,button1,button2))
 		#time.sleep(1/25)
-		time.sleep(40/1000)
+		#time.sleep(50/1000)
+		time.sleep(35/1000)
 
-		if not pre_data == data[0]: bus.write_byte(0x12,data[0])
+		if (not pre_data == data[0]) and (not int(int(pre_data)*(180/256)) == int(int(data[0])*(180/256))): 
+			bus.write_byte(0x12,int(int(data[0])*(180/256)))
+			trans_amm += 1
 		pre_data = data[0]
 
 	except Exception as e:
