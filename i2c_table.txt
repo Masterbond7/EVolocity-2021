@@ -1,3 +1,4 @@
 17 = Steering wheel
 18 = Steering servo
 19 = Pedals
+20 = Brake servo
