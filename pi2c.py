@@ -4,10 +4,11 @@ import time
 bus = smbus.SMBus(1)
 address = 0x11
 pre_data = -1
+pre_data_brk = -1
 trans_amm = 0
 
 while True:
-	"""# Steering wheel
+	# Steering wheel
 	try:
 		steering_data = bus.read_i2c_block_data(0x11, 0x0B, 3) # Steering, 0x0B, 3 bytes
 		button_bytes = ((steering_data[2]<<8)+steering_data[1]) #.to_bytes(2, byteorder="big")
@@ -34,10 +35,10 @@ while True:
 		if angle == -44: continue
 		#angle-=1 #maybe
 
-		print("Steering angle: {0}, Buttons pushed: {1}, Signals Transmitted: {2}".format((angle), buttons_pushed, trans_amm)) #steer,button1,button2))
+		print("Steering angle: {0}, Buttons pushed: {1}, Signals Transmitted: {2}".format((angle), buttons_pushed, trans_amm), end=" ") #steer,button1,button2))
 		#time.sleep(1/25)
 		#time.sleep(50/1000)
-		time.sleep(35/1000)
+		#time.sleep(35/1000)
 
 		if (not pre_data == steering_data[0]) and (not int(int(pre_data)*(180/256)) == int(int(steering_data[0])*(180/256))): 
 			bus.write_byte(0x12,int(int(steering_data[0])*(180/256))) # Steering servo
@@ -46,14 +47,17 @@ while True:
 
 	except Exception as e:
 		print("Oh no, anyway.");time.sleep(0.05)
-		print(e)"""
+		print(e)
 		
 	
 	
 	# Pedals
 	try:
 		pedal_data = bus.read_i2c_block_data(0x13, 0x0B, 3)
-		print("Accelerator: {0}, Brake: {1}, Handbrake: {2}".format(int(pedal_data[0]), int(pedal_data[1]), int(pedal_data[2])))
+		print("Accelerator: {0}, Brake: {1}, Handbrake: {2}".format(pedal_data[0], pedal_data[1], pedal_data[2]))
 		time.sleep(35/1000)
+
+		if (not pre_data_brk == pedal_data[1]) and (not int(int(pre_data_brk)*(180/256)) == int(int(pedal_data[1])*(180/256))):
+			bus.write_byte(0x14,int(int(pedal_data[1])*(180/256)))
 	except:
 		print("Cock pedals");time.sleep(0.05)
