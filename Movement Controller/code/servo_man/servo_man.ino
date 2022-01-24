@@ -9,8 +9,16 @@ void setup() {
 }
 
 void loop(){
-    deg = Serial.parseInt();
+    /*deg = Serial.parseInt();
     if (deg != 0) {
         servo.write(deg);    
+    }*/
+    for (int i = 0; i < 180; i+=5){
+      servo.write(i);
+      delay(25);
+    }
+    for (int i = 180; i > 0; i-=5){
+      servo.write(i);
+      delay(25);
     }
 }
