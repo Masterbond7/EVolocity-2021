@@ -33,7 +33,7 @@ while True:
 		buttons_pushed = []
 
 		# Convert button bytes to buttons
-		if button_bytes >= 8192: button_bytes -= 8192 buttons_pushed.append("X-Box button"); playSound()
+		if button_bytes >= 8192: button_bytes -= 8192; buttons_pushed.append("X-Box button"); playSound()
 		if button_bytes >= 4096: button_bytes -= 4096; buttons_pushed.append("Right Paddle")
 		if button_bytes >= 2048: button_bytes -= 2048; buttons_pushed.append("Left Paddle")
 		if button_bytes >= 1024: button_bytes -= 1024; buttons_pushed.append("Y")
