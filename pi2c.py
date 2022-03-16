@@ -1,11 +1,17 @@
 import smbus
 import time
+import threading
+from playsound import playsound
 
 bus = smbus.SMBus(1)
 address = 0x11
 pre_data = -1
 pre_data_brk = -1
 trans_amm = 0
+
+def v8SoundFunc():
+	playsound("v8.mp3")
+v8Sound = threading.Thread(target=task1, name='v8Sound')
 
 while True:
 	# Steering wheel
@@ -15,7 +21,7 @@ while True:
 		buttons_pushed = []
 
 		# Convert button bytes to buttons
-		if button_bytes >= 8192: button_bytes -= 8192; buttons_pushed.append("X-Box button")
+		if button_bytes >= 8192: button_bytes -= 8192; buttons_pushed.append("X-Box button"); v8Sound.start()
 		if button_bytes >= 4096: button_bytes -= 4096; buttons_pushed.append("Right Paddle")
 		if button_bytes >= 2048: button_bytes -= 2048; buttons_pushed.append("Left Paddle")
 		if button_bytes >= 1024: button_bytes -= 1024; buttons_pushed.append("Y")
