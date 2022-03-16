@@ -4,7 +4,7 @@ import threading
 from pydub import AudioSegment
 from pydub.playback import play
 
-sound = AudioSegment.from_mp3("v8.mp3")
+song = AudioSegment.from_mp3("v8.mp3")
 
 bus = smbus.SMBus(1)
 address = 0x11
@@ -12,18 +12,9 @@ pre_data = -1
 pre_data_brk = -1
 trans_amm = 0
 
-def playSound():
-	soundEffect.start()
-	pedal_data = bus.read_i2c_block_data(0x13, 0x0B, 3)
-	while pedal_data[0] <= 0:
-		pedal_data = bus.read_i2c_block_data(0x13, 0x0B, 3)
-		print("brrooroomm bromrrmoomromrmm")
-	soundEffect.raise_exception()	
-
-def soundEffectFunc():
-	play(sound)
-
-soundEffect = threading.Thread(target=soundEffectFunc, name='soundEffect')
+def v8SoundFunc():
+	play(song)
+v8Sound = threading.Thread(target=v8SoundFunc, name='v8Sound')
 
 while True:
 	# Steering wheel
@@ -33,7 +24,16 @@ while True:
 		buttons_pushed = []
 
 		# Convert button bytes to buttons
-		if button_bytes >= 8192: button_bytes -= 8192 buttons_pushed.append("X-Box button"); playSound()
+		if button_bytes >= 8192: 
+
+			button_bytes -= 8192 buttons_pushed.append("X-Box button")
+			v8Sound.start()
+
+			while pedal_data[0] <= 0:
+				pedal_data = bus.read_i2c_block_data(0x13, 0x0B, 3)
+				print("brrooroomm bromrrmoomromrmm")
+			v8SoundFunc.raise_exception()
+ 
 		if button_bytes >= 4096: button_bytes -= 4096; buttons_pushed.append("Right Paddle")
 		if button_bytes >= 2048: button_bytes -= 2048; buttons_pushed.append("Left Paddle")
 		if button_bytes >= 1024: button_bytes -= 1024; buttons_pushed.append("Y")
