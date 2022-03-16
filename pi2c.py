@@ -15,7 +15,7 @@ trans_amm = 0
 def playSound():
 	soundEffect.start()
 	pedal_data = bus.read_i2c_block_data(0x13, 0x0B, 3)
-	while pedal_data[0] <= 0:
+	while pedal_data[0] <= 10:
 		pedal_data = bus.read_i2c_block_data(0x13, 0x0B, 3)
 		print("brrooroomm bromrrmoomromrmm")
 	soundEffect.raise_exception()	
