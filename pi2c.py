@@ -1,7 +1,10 @@
 import smbus
 import time
 import threading
-from playsound import playsound
+from pydub import AudioSegment
+from pydub.playback import play
+
+song = AudioSegment.from_mp3("v8.mp3")
 
 bus = smbus.SMBus(1)
 address = 0x11
@@ -10,8 +13,8 @@ pre_data_brk = -1
 trans_amm = 0
 
 def v8SoundFunc():
-	playsound("v8.mp3")
-v8Sound = threading.Thread(target=task1, name='v8Sound')
+	play(song)
+v8Sound = threading.Thread(target=v8SoundFunc, name='v8Sound')
 
 while True:
 	# Steering wheel
