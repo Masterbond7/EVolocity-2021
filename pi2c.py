@@ -67,7 +67,11 @@ while True:
 	# Checks if the sound effect is playing then kills it if the accelerator is pressed
 	try:
 		poll = engineSound.poll()
-		if pedal_data[0] >= 5:
-				engineSound.kill()
 	except:
-		pass
+		print("Pedal check had an unhappy")
+
+	if pedal_data[0] >= 5:
+		try:
+			engineSound.kill()
+		except:
+			print("Pedal kill had an unhappy")
