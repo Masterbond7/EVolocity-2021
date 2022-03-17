@@ -75,5 +75,6 @@ while True:
 	if pedal_data[0] >= 5:
 		try:
 			engineSound.kill()
+			print("\"Succesful kill\"")
 		except:
 			print("Pedal kill had an unhappy")
