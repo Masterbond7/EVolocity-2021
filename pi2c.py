@@ -64,13 +64,11 @@ while True:
 	except:
 		print("Cock pedals");time.sleep(0.05)
 
-	# Checks if the sound effect is playing then kills it if the accelerator is pressed
-	try:
-		poll = engineSound.poll()
-	except:
-		print("Pedal check had an unhappy")
+	# Kills the engine sound effect if the accelerator is pressed
 
 	print(pedal_data[0])
+
+	time.sleep(2)
 
 	if pedal_data[0] >= 5:
 		try:
@@ -79,9 +77,11 @@ while True:
 		except:
 			print("Pedal kill had an unhappy")
 
+	'''
 	time.sleep(2)
 
 	try:
 		engineSound.kill()
 	except:
 		print("WHY WONT YOU DIE?")
+	'''
