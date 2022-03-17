@@ -79,6 +79,8 @@ while True:
 		except:
 			print("Pedal kill had an unhappy")
 
+	time.sleep(2)
+
 	try:
 		engineSound.kill()
 	except:
