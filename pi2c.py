@@ -68,7 +68,7 @@ while True:
 
 	print(pedal_data[0])
 
-	time.sleep(2)
+	time.sleep(.05)
 
 	if pedal_data[0] >= 5:
 		try:
