@@ -37,7 +37,7 @@ while True:
 		if angle == -44: continue
 		#angle-=1 #maybe
 
-		print("Steering angle: {0}, Buttons pushed: {1}, Signals Transmitted: {2}".format((angle), buttons_pushed, trans_amm), end=" ") #steer,button1,button2))
+		#print("Steering angle: {0}, Buttons pushed: {1}, Signals Transmitted: {2}".format((angle), buttons_pushed, trans_amm), end=" ") #steer,button1,button2))
 		#time.sleep(1/25)
 		#time.sleep(50/1000)
 		#time.sleep(35/1000)
@@ -71,7 +71,7 @@ while True:
 		print("Pedal check had an unhappy")
 
 	print(pedal_data[0])
-	
+
 	if pedal_data[0] >= 5:
 		try:
 			engineSound.kill()
