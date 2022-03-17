@@ -1,29 +1,13 @@
 import smbus
 import time
 import threading
-from pydub import AudioSegment
-from pydub.playback import play
-
-sound = AudioSegment.from_mp3("v8.mp3")
+import subprocess
 
 bus = smbus.SMBus(1)
 address = 0x11
 pre_data = -1
 pre_data_brk = -1
 trans_amm = 0
-
-def playSound():
-	soundEffect.start()
-	pedal_data = bus.read_i2c_block_data(0x13, 0x0B, 3)
-	while pedal_data[0] <= 10:
-		pedal_data = bus.read_i2c_block_data(0x13, 0x0B, 3)
-		print("brrooroomm bromrrmoomromrmm")
-	soundEffect.raise_exception()	
-
-def soundEffectFunc():
-	play(sound)
-
-soundEffect = threading.Thread(target=soundEffectFunc, name='soundEffect')
 
 while True:
 	# Steering wheel
@@ -33,7 +17,8 @@ while True:
 		buttons_pushed = []
 
 		# Convert button bytes to buttons
-		if button_bytes >= 8192: button_bytes -= 8192; buttons_pushed.append("X-Box button"); playSound()
+		if button_bytes >= 8192: button_bytes -= 8192; buttons_pushed.append("X-Box button")
+		engineSound = subprocess.Popen(['play', 'v8.mp3']) # Starts engine sound effect
 		if button_bytes >= 4096: button_bytes -= 4096; buttons_pushed.append("Right Paddle")
 		if button_bytes >= 2048: button_bytes -= 2048; buttons_pushed.append("Left Paddle")
 		if button_bytes >= 1024: button_bytes -= 1024; buttons_pushed.append("Y")
@@ -79,3 +64,9 @@ while True:
 			bus.write_byte(0x14,int(int(pedal_data[1])*(180/256)))
 	except:
 		print("Cock pedals");time.sleep(0.05)
+
+	poll = engineSound.poll()
+
+	# Checks if the sound effect is playing then kills it if the accelerator is pressed
+	if poll is None and pedal_data[0] >= 5:
+		engineSound.kill()
