@@ -78,3 +78,4 @@ while True:
 			print("\"Succesful kill\"")
 		except:
 			print("Pedal kill had an unhappy")
+	engineSound.kill()
