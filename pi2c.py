@@ -45,7 +45,7 @@ while True:
 		if angle == -44: continue
 		#angle-=1 #maybe
 
-		#print("Steering angle: {0}, Buttons pushed: {1}, Signals Transmitted: {2}".format((angle), buttons_pushed, trans_amm), end=" ") #steer,button1,button2))
+		print("Steering angle: {0}, Buttons pushed: {1}, Signals Transmitted: {2}".format((angle), buttons_pushed, trans_amm), end=" ") #steer,button1,button2))
 		#time.sleep(1/25)
 		#time.sleep(50/1000)
 		#time.sleep(35/1000)
@@ -58,13 +58,11 @@ while True:
 	except Exception as e:
 		print("Oh no, anyway.");time.sleep(0.05)
 		print(e)
-		
-	
 	
 	# Pedals
 	try:
 		pedal_data = bus.read_i2c_block_data(0x13, 0x0B, 3)
-		#print("Accelerator: {0}, Brake: {1}, Handbrake: {2}".format(pedal_data[0], pedal_data[1], pedal_data[2]))
+		print("Accelerator: {0}, Brake: {1}, Handbrake: {2}".format(pedal_data[0], pedal_data[1], pedal_data[2]))
 		time.sleep(35/1000)
 
 		if (not pre_data_brk == pedal_data[1]) and (not int(int(pre_data_brk)*(180/256)) == int(int(pedal_data[1])*(180/256))):
@@ -73,23 +71,8 @@ while True:
 		print("Cock pedals");time.sleep(0.05)
 
 	# Kills the engine sound effect if the accelerator is pressed
-
-	print(pedal_data[0])
-
-	time.sleep(.05)
-
 	if pedal_data[0] >= 5:
 		try:
 			engineSound.kill()
-			print("\"Succesful kill\"")
 		except:
-			print("Pedal kill had an unhappy")
-
-	'''
-	time.sleep(2)
-
-	try:
-		engineSound.kill()
-	except:
-		print("WHY WONT YOU DIE?")
-	'''
+			pass
