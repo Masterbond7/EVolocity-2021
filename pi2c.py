@@ -17,7 +17,17 @@ while True:
 		buttons_pushed = []
 
 		# Convert button bytes to buttons
-		if button_bytes >= 8192: button_bytes -= 8192; buttons_pushed.append("X-Box button"); engineSound = subprocess.Popen(['play', 'v8.mp3']) # Starts engine sound effect
+		if button_bytes >= 8192: 
+			
+			buttons_pushed.append("X-Box button")
+			engineSound = subprocess.Popen(['play', 'v8.mp3']) # Starts engine sound effect
+			
+			#Waits for button to be released
+			while button_bytes == 8192:
+				print("Button down")
+
+			button_bytes -= 8192
+
 		if button_bytes >= 4096: button_bytes -= 4096; buttons_pushed.append("Right Paddle")
 		if button_bytes >= 2048: button_bytes -= 2048; buttons_pushed.append("Left Paddle")
 		if button_bytes >= 1024: button_bytes -= 1024; buttons_pushed.append("Y")
