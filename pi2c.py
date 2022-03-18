@@ -22,9 +22,7 @@ while True:
 			buttons_pushed.append("X-Box button")
 			engineSound = subprocess.Popen(['play', 'v8.mp3']) # Starts engine sound effect
 			
-			#Waits for button to be released
-			while button_bytes == 8192:
-				print("Button down")
+			time.sleep(2)
 
 			button_bytes -= 8192
 
