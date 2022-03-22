@@ -22,7 +22,7 @@ void setup() {
     Wire.begin(18);  
     Wire.onReceive(receiveData);
 
-    Serial.begin(9600);
+    //Serial.begin(9600);
 }
 
 void loop(){
@@ -46,5 +46,5 @@ void receiveData(int num_bytes) {
         delay(increment_delay);
     }
 
-    Serial.println(desired_angle);
+    //Serial.println(desired_angle);
 }

@@ -85,7 +85,7 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     return render_template("index.html")
-        
+
 @app.route('/video_feed')
 def video_feed():
     return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
@@ -125,7 +125,7 @@ def text_data():
            "Steering wheel position: "+str(usr_wheel)+"<br>"+                \
            "Throttle position: "+str(usr_accel)+"<br>"+                      \
            "Brake position: "+str(usr_brake)
-           
+
     ##return open("save_data.txt", 'r').read()
 
 @app.route("/gps_coords")
@@ -134,7 +134,7 @@ def gps_coords():
 
 
 # Creating Basic HUD
-def basicHud(): 
+def basicHud():
     # Initializing Behaviours
     def basicHudUpdate():
         # Creating These Variables For Debugging Use
@@ -170,9 +170,9 @@ def basicHud():
         mapLabel.image=mapImage
 
         # Re-Calling This Function To Form A Infinate Update Loop
-        basicHudWindow.after(1000, basicHudUpdate) 
+        basicHudWindow.after(1000, basicHudUpdate)
 
-    
+
     # Initializing Window
     basicHudWindow = Tk()
     basicHudWindow.geometry("800x480")
@@ -310,7 +310,7 @@ while True:
         # AI Camera
         if dissected_ard_input[0] == "AIC":
             steering_correction = float(dissected_vars[0])
-            
+
         # Distance Sensors
         if dissected_ard_input[0] == "DIST":
             distance_value = float(dissected_vars[0])
@@ -323,7 +323,7 @@ while True:
 
             # Logic To Override Mode To AUTO If AUTO Switch Is Flicked (MODE OVERRIDE)
             if cart_auto == 1: cart_mode = 0
-            
+
             # Reading Mode Data
             mode_data_file = open('mode_config.json', 'r')
             mode_data = json.load(mode_data_file)
@@ -404,8 +404,8 @@ while True:
         log_file.write(str(usr_accel)+",")
         log_file.write(str(usr_brake)+"\n")
         log_file.close()
-        
-        
+
+
         # Reset Arduino Input Variable
         ard_input = "|"
 
