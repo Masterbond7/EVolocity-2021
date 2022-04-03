@@ -15,6 +15,7 @@ void setup() {
     increment_angle = 5;
     increment_delay = 30;
     current_angle = 90;
+    desired_angle = 90;
     
     servo.attach(3);
     servo.write(current_angle);
@@ -37,6 +38,11 @@ void receiveData(int num_bytes) {
     //positionData.Int = 180 - positionData.Int;//(180.0f/256.0f)
 
     desired_angle = positionData.Int;
+    
+    if (desired_angle > 180 || desired_angle < 0) {
+        desired_angle = current_angle;
+    }
+    
     delta_angle = desired_angle - current_angle;
     remainder_angle = delta_angle % increment_angle;
     
