@@ -37,6 +37,11 @@ void receiveData(int num_bytes) {
     //positionData.Int = 180 - positionData.Int;//(180.0f/256.0f)
 
     desired_angle = positionData.Int;
+    
+    if (desired_angle > 180 || desired_angle < 0) {
+        desired_angle = current_angle;
+    }
+    
     delta_angle = desired_angle - current_angle;
     remainder_angle = delta_angle % increment_angle;
     
