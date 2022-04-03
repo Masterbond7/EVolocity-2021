@@ -39,7 +39,7 @@ while True:
 		buttons_pushed = ", ".join(buttons_pushed)
 		angle=int(steering_data[0]/(256/90)*-1)+45
 		if angle == -44: continue
-		#angle-=1 #maybe
+		angle-=1 #maybe
 
 		print("Steering angle: {0}, Buttons pushed: {1}, Signals Transmitted: {2}".format((angle), buttons_pushed, trans_amm), end=" ") #steer,button1,button2))
 		#time.sleep(1/25)
