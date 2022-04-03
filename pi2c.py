@@ -66,8 +66,8 @@ while True:
 		time.sleep(35/1000)
 
 		if (not pre_data_brk == pedal_data[1]) and (not int(int(pre_data_brk)*(180/256)) == int(int(pedal_data[1])*(180/256))):
-			bus.write_byte(0x14,180-int(int(pedal_data[0])*(180/256))) # accelerator
-			#bus.write_byte(0x14,int(int(pedal_data[1])*(180/256)))
+			#bus.write_byte(0x14,180-int(int(pedal_data[0])*(180/256))) # accelerator
+			bus.write_byte(0x14,int(int(pedal_data[1])*(180/256)))
 	except:
 		print("Cock pedals");time.sleep(0.05)
 
