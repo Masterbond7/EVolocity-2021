@@ -10,7 +10,7 @@ long duration;
 /*union u_tag {
     unsigned int Int[4];
 } data;*/
-int data[4];
+byte data[4];
 
 void setup() {
 
@@ -56,7 +56,7 @@ void loop() {
   
     duration = pulseIn(echo, HIGH);
     distance = duration * 0.034 / 2; 
-    data[i] = distance;
+    data[i] = byte(distance);
 
     //Serial.print("Distance %d: %dcm", i, distance);
     Serial.print("Distance ");
