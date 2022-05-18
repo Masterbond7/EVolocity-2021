@@ -3,7 +3,7 @@ int num = 0;
 
 void setup() {
     Serial.begin(9600);
-    pinMode(3, OUTPUT);
+    pinMode(6, OUTPUT);
 }
 
 void loop() {
@@ -11,6 +11,6 @@ void loop() {
     //if (tempnum != 0) { num = tempnum; }
     if (Serial.available()) {
         num = Serial.parseInt();
-        analogWrite(3, num);    
+        analogWrite(6, num);    
     }
 }
