@@ -8,12 +8,13 @@ import random
 temp = 67
 engineOk = True
 
-speed = 34
+speed = 0
 mode = "Economy"
-batteryPercentage = 67
+batteryPercentage = 62
 # } Tempory placeholder values
 
 root = Tk()
+root.attributes('-fullscreen', True)
 root.title('Tkinter Window Demo')
 
 def rootUpdate():

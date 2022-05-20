@@ -59,7 +59,7 @@ while True:
 	try:
 		pedal_data = bus.read_i2c_block_data(0x13, 0x0B, 3)
 		print("Accelerator: {0}, Brake: {1}, Handbrake: {2}".format(pedal_data[0], pedal_data[1], pedal_data[2]))
-		time.sleep(35/1000)
+		time.sleep(45/1000) #35/1000)
 
 		if (not pre_data_brk == pedal_data[1]) and (not int(int(pre_data_brk)*(180/256)) == int(int(pedal_data[1])*(180/256))):
 			#bus.write_byte(0x14,180-int(int(pedal_data[0])*(180/256))) # accelerator
