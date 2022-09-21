@@ -1,9 +1,12 @@
-#include <Wire.h>
+byte steering;
+union u_tag {
+    unsigned int Int;
+    byte Byte[2];
+} wheelData;
+byte finalBytes[3];
 
 void setup() {
     Serial.begin(9600);
-    Wire.begin(17);
-    Wire.onRequest(sendData);
  
     pinMode(2, INPUT_PULLUP); // D-pad up
     pinMode(3, INPUT_PULLUP); // D-pad left
@@ -30,36 +33,6 @@ void setup() {
 }
 
 void loop() {
-    if (digitalRead(2) == LOW) {Serial.print("D-pad up, ");} 
-    if (digitalRead(3) == LOW) {Serial.print("D-pad left, ");} 
-    if (digitalRead(4) == LOW) {Serial.print("D-pad right, ");} 
-    if (digitalRead(5) == LOW) {Serial.print("D-pad down, ");} 
-    
-    if (digitalRead(6) == LOW) {Serial.print("UNDEFINED 1, ");} 
-    if (digitalRead(7) == LOW) {Serial.print("UNDEFINED 2, ");} 
-    if (digitalRead(8) == LOW) {Serial.print("UNDEFINED 3, ");}
-    
-    if (digitalRead(9) == LOW) {Serial.print("B, ");}  
-    if (digitalRead(11) == LOW) {Serial.print("A, ");} 
-    if (analogRead(A6) < 512) {Serial.print("X, ");} 
-    if (analogRead(A7) < 512) {Serial.print("Y, ");} 
-
-    if (digitalRead(12) == LOW) {Serial.print("Left padle, ");} 
-    if (digitalRead(10) == LOW) {Serial.print("Right padle, ");} 
-
-    if (digitalRead(17) == LOW) {Serial.print("X-Box button, ");} 
-
-    Serial.println(analogRead(A0));
-}
-
-byte steering;
-union u_tag {
-    unsigned int Int;
-    byte Byte[2];
-} wheelData;
-byte finalBytes[3];
-
-void sendData() {
     steering = analogRead(A0) / 4; // Get steering angle between 0-255
 
     wheelData.Int = 0;
@@ -87,5 +60,5 @@ void sendData() {
     finalBytes[1] = wheelData.Byte[0];
     finalBytes[2] = wheelData.Byte[1];
     
-    Wire.write(finalBytes, 3);
+    Serial.write(finalBytes, 3);
 }
