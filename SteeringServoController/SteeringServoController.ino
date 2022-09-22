@@ -19,8 +19,9 @@ void setup() {
 
 void loop() {
     if(Serial.available() > 0) {
-        Serial.readBytes(inputBytes, 3); 
-        steeringByte = inputBytes[0];
+        //Serial.readBytes(inputBytes, 3); 
+        //steeringByte = inputBytes[0];
+        steeringByte = Serial.parseInt();
         desired_angle = int(float(steeringByte) * (180.0f/256.0f));  
     
         delta_angle = desired_angle - current_angle;

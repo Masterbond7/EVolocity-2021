@@ -60,5 +60,6 @@ void loop() {
     finalBytes[1] = wheelData.Byte[0];
     finalBytes[2] = wheelData.Byte[1];
     
-    Serial.write(finalBytes, 3);
+    Serial.print(steering);
+    //Serial.write(finalBytes, 3);
 }
