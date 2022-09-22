@@ -18,7 +18,7 @@ void setup() {
 }
 
 void loop() {
-    desired_angle = (int(float(analogRead(A7) * (180.0f/1024.0f))*-1)+180;
+    desired_angle = (int(float(analogRead(A7) * (180.0f/1024.0f)))*-1)+180;
     delta_angle = desired_angle - current_angle;
     remainder_angle = abs(delta_angle) % increment_angle;
 
