@@ -1,13 +1,20 @@
-int pulse = 11, 
-dir = 10, 
-hallEffect = 2,
-highSensor = 7, 
-lowSensor = 4,
-stepDel = 10,
-samplePeriod = 500,
-count = 0;
+/*
 
-bool dirHighAllowed, dirLowAllowed;
+Gearbox controller code
+
+ */
+
+int 
+pulse = 11, dir = 10, hallEffect = 2, highSensor = 7, lowSensor = 4,
+hallEffectCount = 0, prevHighTime, highTime, highSpace,
+stepDel = 10, samplePeriod = 500, pinState = LOW;
+
+bool 
+dirHighAllowed, dirLowAllowed, shifting = false;
+
+float rpm;
+
+static int prevPinState = LOW;
 
 void setup() {
   pinMode(pulse, OUTPUT);
@@ -15,49 +22,88 @@ void setup() {
   pinMode(highSensor, INPUT);
   pinMode(lowSensor, INPUT);
   digitalWrite(dir, HIGH);
+  
   Serial.begin(9600);
 }
 
 void loop() {
 
-  if (digitalRead(highSensor) == HIGH) {
+  /* Determines whether the motor is allowed to spin HIGH */
+  if (digitalRead(highSensor) == HIGH && digitalRead(dir) == HIGH) {
     dirHighAllowed = false;
-    digitalWrite(dir, LOW);
   }
   else {
     dirHighAllowed = true;
   }
 
-  if (digitalRead(lowSensor) == HIGH) {
+  /* Determines whether the motor is allowed to spin LOW */
+  if (digitalRead(lowSensor) == HIGH && digitalRead(dir) == LOW) {
     dirLowAllowed = false;
-    digitalWrite(dir, HIGH);
   }
   else {
     dirLowAllowed = true;
   }
-
-  if (dirHighAllowed == true || dirLowAllowed == true) {
+  
+  /* Pulses the stepper motor is it is allowed to move */
+  if (shifting == true && dirHighAllowed == true && dirLowAllowed == true) {
+    Serial.print("True  ");
     digitalWrite(pulse, HIGH);
     delayMicroseconds(stepDel);
     digitalWrite(pulse, LOW);
     delayMicroseconds(stepDel);
   }
-
-
-  static uint32_t lastTime = 0;
-  if (millis() - lastTime >= samplePeriod) {
-    noInterrupts();
-    unsigned int pulsesPerPeriod = count;
-    count = 0;
-    interrupts();
-    Serial.println(pulsesPerPeriod);
-    lastTime += samplePeriod;
+  else {
+    Serial.print("False ");
   }
+  
+  pinState = digitalRead(hallEffect); 
+
+  /* Detects if the hall effect sensor recieves a new magnet pass */
+  if (pinState == HIGH && prevPinState == LOW) {
+
+    /* Determines the time between two magnet passes */
+    highSpace = millis() - prevHighTime;
+    prevHighTime = millis();
+
+    /* Determines the rpm */
+    rpm = 1000/float(highSpace)*60;
+  }
+  /*
+  else if (millis() - prevHighTime >= 5000) {
+    rpm = 0;
+    Serial.print("aaaaaaaaaaa");
+  }
+  */
+
+  /* Determines what direction the stepper should spin */
+  if (rpm == 0) {
+    shifting = false;
+  }
+  else if (rpm < 2500) {
+    digitalWrite(dir, HIGH);
+    shifting = true;
+  }
+  else if (rpm <= 3000) {
+    shifting = false;
+  }
+  else {
+    shifting = true;
+    digitalWrite(dir, LOW);
+  } 
+    
+  
+  prevPinState = pinState;
+
+  Serial.println(" "+String(digitalRead(lowSensor))+String(digitalRead(highSensor))+" "+String(dirLowAllowed)+String(dirHighAllowed)+" "+String(rpm)+" "+String(digitalRead(dir)) );
   
 }
 
 /* 
 
 Steps size = 1.8, steps per rev 200
+Thing go 6000rpm
+
+5500
+6000
 
 */
