@@ -16,28 +16,17 @@ float rpm = 0;
 
 
 void setup() {
+  pinMode(highSensor, INPUT);
+  pinMode(lowSensor, INPUT);
+  pinMode(pulse, OUTPUT);
+  pinMode(dir, OUTPUT);
+  
   attachInterrupt(0, setLastPulse, RISING);
 }
 
 void loop() {
 
-  /* Determines whether the stepper motor is allowed to spin HIGH */
-  if (digitalRead(highSensor) == HIGH && digitalRead(dir) == HIGH) {
-    dirHighAllowed = false;
-  }
-  else {
-    dirHighAllowed = true;
-  }
-
-  /* Determines whether the stepper motor is allowed to spin LOW */
-  if (digitalRead(lowSensor) == HIGH && digitalRead(dir) == LOW) {
-    dirLowAllowed = false;
-  }
-  else {
-    dirLowAllowed = true;
-  }
-
-  /* Works out the motors current RPM */
+  /* Works out the motor's current RPM */
   rpm = 1000/float(millis() - timeAtLastPulse)*60;
 
   /* Determines if and what direction the motor should spin */
@@ -55,7 +44,25 @@ void loop() {
     shifting = true;
     digitalWrite(dir, LOW);
   }
+  
 
+  /* Determines whether the stepper motor is allowed to spin HIGH */
+  if (digitalRead(highSensor) == HIGH && digitalRead(dir) == HIGH) {
+    dirHighAllowed = false;
+  }
+  else {
+    dirHighAllowed = true;
+  }
+
+  /* Determines whether the stepper motor is allowed to spin LOW */
+  if (digitalRead(lowSensor) == HIGH && digitalRead(dir) == LOW) {
+    dirLowAllowed = false;
+  }
+  else {
+    dirLowAllowed = true;
+  }
+
+  
   /* If it safe to spin the motor, it will pulse the stepper motor to turn it */
   if (shifting && dirHighAllowed && dirLowAllowed) {
     digitalWrite(pulse, HIGH);
@@ -68,6 +75,8 @@ void loop() {
   else {
     Serial.print("Shifting gear: False");
   }
+
+  Serial.println("RPM: "+String(rpm));
   
 }
 
