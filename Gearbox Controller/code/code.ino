@@ -4,62 +4,24 @@ Gearbox controller code
 
  */
 
-int 
-pulse = 11, dir = 10, hallEffect = 2, highSensor = 7, lowSensor = 4,
-hallEffectCount = 0, prevHighTime, highTime, highSpace,
-stepDel = 10, samplePeriod = 500, pinState = LOW, inputsRecieved, initLoopTime;
+volatile int timeAtLastPulse = 0;
 
-bool 
-dirHighAllowed, dirLowAllowed, shifting = false;
+int
+highSensor = 7, lowSensor = 4, pulse = 11, dir = 10, stepDel = 10;
 
-float rpm;
+bool
+dirHighAllowed, dirLowAllowed, shifting;
 
-static int prevPinState = LOW;
+float rpm = 0;
+
 
 void setup() {
-  pinMode(pulse, OUTPUT);
-  pinMode(dir, OUTPUT);
-  pinMode(highSensor, INPUT);
-  pinMode(lowSensor, INPUT);
-  digitalWrite(dir, HIGH);
-  
-  Serial.begin(9600);
+  attachInterrupt(0, setLastPulse, RISING);
 }
 
 void loop() {
 
-  inputsRecieved = 0;
-  initLoopTime = millis();
-  
-  while (inputsRecieved < 2) {
-    
-    pinState = digitalRead(hallEffect); 
-  
-    /* Detects if the hall effect sensor recieves a new magnet pass */
-    if (pinState == HIGH && prevPinState == LOW) {
-  
-      /* Determines the time between two magnet passes */
-      highSpace = millis() - prevHighTime;
-      prevHighTime = millis();
-  
-      /* Determines the rpm */
-      rpm = 1000/float(highSpace)*60;
-
-      inputsRecieved++;
-    }
-    
-    prevPinState = pinState;
-
-    /* Stops the loop from waiting too long */
-    if (millis() - initLoopTime >= 2000) {
-      rpm = 0;
-      inputsRecieved = 2;
-      Serial.print("exit by boredom ");
-    }
-
-  }
-
-  /* Determines whether the motor is allowed to spin HIGH */
+  /* Determines whether the stepper motor is allowed to spin HIGH */
   if (digitalRead(highSensor) == HIGH && digitalRead(dir) == HIGH) {
     dirHighAllowed = false;
   }
@@ -67,22 +29,24 @@ void loop() {
     dirHighAllowed = true;
   }
 
-  /* Determines whether the motor is allowed to spin LOW */
+  /* Determines whether the stepper motor is allowed to spin LOW */
   if (digitalRead(lowSensor) == HIGH && digitalRead(dir) == LOW) {
     dirLowAllowed = false;
   }
   else {
     dirLowAllowed = true;
   }
-  
 
-  /* Determines what direction the stepper should spin */
+  /* Works out the motors current RPM */
+  rpm = 1000/float(millis() - timeAtLastPulse)*60;
+
+  /* Determines if and what direction the motor should spin */
   if (rpm == 0) {
     shifting = false;
   }
   else if (rpm < 2500) {
-    digitalWrite(dir, HIGH);
     shifting = true;
+    digitalWrite(dir, HIGH);
   }
   else if (rpm <= 3000) {
     shifting = false;
@@ -90,30 +54,24 @@ void loop() {
   else {
     shifting = true;
     digitalWrite(dir, LOW);
-  } 
+  }
 
-  
-  if (shifting == true && dirHighAllowed == true && dirLowAllowed == true) {
-    Serial.print("True  ");
+  /* If it safe to spin the motor, it will pulse the stepper motor to turn it */
+  if (shifting && dirHighAllowed && dirLowAllowed) {
     digitalWrite(pulse, HIGH);
     delayMicroseconds(stepDel);
     digitalWrite(pulse, LOW);
     delayMicroseconds(stepDel);
+
+    Serial.print("Shifting gear: True");
   }
   else {
-    Serial.print("False ");
+    Serial.print("Shifting gear: False");
   }
-
-  Serial.println(" "+String(digitalRead(lowSensor))+String(digitalRead(highSensor))+" "+String(dirLowAllowed)+String(dirHighAllowed)+" "+String(rpm)+" "+String(digitalRead(dir)) );
   
 }
 
-/* 
-
-Steps size = 1.8, steps per rev 200
-Thing go 6000rpm
-
-5500
-6000
-
-*/
+/* ISR for setting the time which the hall effect sensor last got a pulse */
+void setLastPulse() {
+  timeAtLastPulse = millis();
+}
