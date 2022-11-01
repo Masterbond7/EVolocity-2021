@@ -77,7 +77,7 @@ void loop() {
     Serial.print("Shifting gear: False");
   }
 
-  Serial.println("RPM: "+String(rpm));
+  Serial.println(" RPM: "+String(rpm));
   
 }
 
