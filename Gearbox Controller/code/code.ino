@@ -4,7 +4,7 @@ Gearbox controller code
 
  */
 
-volatile int timeAtLastPulse = 0;
+volatile unsigned long long int timeAtLastPulse = 0;
 
 int
 highSensor = 7, lowSensor = 4, pulse = 11, dir = 10, stepDel = 10;
@@ -22,6 +22,8 @@ void setup() {
   pinMode(dir, OUTPUT);
   
   attachInterrupt(0, setLastPulse, RISING);
+
+  Serial.begin(9600);
 }
 
 
@@ -64,6 +66,15 @@ void loop() {
   }
 
   
+  
+  
+}
+
+
+/* ISR for setting the time which the hall effect sensor last got a pulse */
+void setLastPulse() {
+  timeAtLastPulse = millis();
+
   /* If it safe to spin the motor, it will pulse the stepper motor to turn it */
   if (shifting && dirHighAllowed && dirLowAllowed) {
     digitalWrite(pulse, HIGH);
@@ -78,11 +89,4 @@ void loop() {
   }
 
   Serial.println(" RPM: "+String(rpm));
-  
-}
-
-
-/* ISR for setting the time which the hall effect sensor last got a pulse */
-void setLastPulse() {
-  timeAtLastPulse = millis();
 }
