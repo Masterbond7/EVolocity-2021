@@ -7,7 +7,7 @@ Gearbox controller code
 int 
 pulse = 11, dir = 10, hallEffect = 2, highSensor = 7, lowSensor = 4,
 hallEffectCount = 0, prevHighTime, highTime, highSpace,
-stepDel = 10, samplePeriod = 500, pinState = LOW, inputsRecieved;
+stepDel = 10, samplePeriod = 500, pinState = LOW, inputsRecieved, initLoopTime;
 
 bool 
 dirHighAllowed, dirLowAllowed, shifting = false;
@@ -47,17 +47,14 @@ void loop() {
 
       inputsRecieved++;
     }
-    /*
-    else if (millis() - prevHighTime >= 5000) {
-      rpm = 0;
-      Serial.print("aaaaaaaaaaa");
-    }
-    */
+    
     prevPinState = pinState;
 
     /* Stops the loop from waiting too long */
-    if (millis() - initLoopTime >= 1000) {
+    if (millis() - initLoopTime >= 2000) {
+      rpm = 0;
       inputsRecieved = 2;
+      Serial.print("exit by boredom ");
     }
 
   }
@@ -118,7 +115,5 @@ Thing go 6000rpm
 
 5500
 6000
-
-  
 
 */
