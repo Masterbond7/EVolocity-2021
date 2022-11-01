@@ -24,6 +24,7 @@ void setup() {
   attachInterrupt(0, setLastPulse, RISING);
 }
 
+
 void loop() {
 
   /* Works out the motor's current RPM */
@@ -79,6 +80,7 @@ void loop() {
   Serial.println("RPM: "+String(rpm));
   
 }
+
 
 /* ISR for setting the time which the hall effect sensor last got a pulse */
 void setLastPulse() {
