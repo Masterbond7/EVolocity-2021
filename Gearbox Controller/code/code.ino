@@ -44,19 +44,16 @@ void loop() {
  
 
   /* Determines if and what direction the motor should spin */
-  if (rpm == 0) {
-    shifting = false;
-  }
-  else if (rpm < 2000) {
+  if (rpm > 0 && rpm <= 1500) {
     shifting = true;
     digitalWrite(dir, HIGH);
   }
-  else if (rpm <= 3000) {
-    shifting = false;
-  }
-  else {
+  else if (rpm >= 2500) {
     shifting = true;
     digitalWrite(dir, LOW);
+  }
+  else {
+    shifting = false;
   }
   
 
