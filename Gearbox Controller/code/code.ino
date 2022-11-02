@@ -35,12 +35,12 @@ void setup() {
 void loop() {
 
   /* Works out the motor's current RPM */ 
-  if (millis() - timeAtPulse >= 1000) {
-    rpm = 0;
+  if (millis() - timeAtPulse >= 600) { // If time between a pulse is long enough for 
+    rpm = 0;                           // 100 RPM or below it will set RPM to 0
   }
   else {
-    rpm = 1000/float(timeAtPulse - timeAtPrevPulse)*60;
-  }
+    rpm = 1000/float(timeAtPulse - timeAtPrevPulse)*60; // Works out RPM based on time 
+  }                                                     // between magnet pulses
  
 
   /* Determines if and what direction the motor should spin */
