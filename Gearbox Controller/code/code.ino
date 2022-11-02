@@ -4,7 +4,8 @@ Gearbox controller code
 
  */
 
-volatile int timeAtLastPulse = 0;
+volatile unsigned long long int 
+timeAtPulse = 0, timeAtPrevPulse = 0;
 
 int
 highSensor = 7, lowSensor = 4, pulse = 11, dir = 10, stepDel = 10;
@@ -27,8 +28,14 @@ void setup() {
 
 void loop() {
 
-  /* Works out the motor's current RPM */
-  rpm = 1000/float(millis() - timeAtLastPulse)*60;
+  /* Works out the motor's current RPM */ 
+  if (millis() - timeAtPulse >= 3000) {
+    rpm = 0;
+  }
+  else {
+    rpm = 1000/float(timeAtPulse - timeAtPrevPulse)*60;
+  }
+ 
 
   /* Determines if and what direction the motor should spin */
   if (rpm == 0) {
@@ -71,10 +78,10 @@ void loop() {
     digitalWrite(pulse, LOW);
     delayMicroseconds(stepDel);
 
-    Serial.print("Shifting gear: True");
+    //Serial.print("Shifting gear: True");
   }
   else {
-    Serial.print("Shifting gear: False");
+    //Serial.print("Shifting gear: False");
   }
 
   Serial.println(" RPM: "+String(rpm));
@@ -84,5 +91,6 @@ void loop() {
 
 /* ISR for setting the time which the hall effect sensor last got a pulse */
 void setLastPulse() {
-  timeAtLastPulse = millis();
+  timeAtPrevPulse = timeAtPulse;
+  timeAtPulse = millis();
 }
