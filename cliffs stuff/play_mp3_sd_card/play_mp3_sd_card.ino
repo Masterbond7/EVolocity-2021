@@ -349,7 +349,7 @@ void parse_menu(byte key_command) {
 
    } else if(key_command == 'b') {
     Serial.println(F("Playing Static MIDI file."));
-    MP3player.SendSingleMIDInote();
+    //MP3player.SendSingleMIDInote();
     Serial.println(F("Ended Static MIDI file."));
 
 #if !defined(__AVR_ATmega32U4__)
@@ -461,9 +461,9 @@ void parse_menu(byte key_command) {
     } else {
       TrebleFrequency += 1000;
     }
-    MP3player.setTrebleFrequency(TrebleFrequency);
+//    MP3player.setTrebleFrequency(TrebleFrequency);
     Serial.print(F("New TrebleFrequency = "));
-    Serial.println(MP3player.getTrebleFrequency(), DEC);
+//    Serial.println(MP3player.getTrebleFrequency(), DEC);
 
   } else if(key_command == 'E') {
     int8_t TrebleAmplitude = MP3player.getTrebleAmplitude();

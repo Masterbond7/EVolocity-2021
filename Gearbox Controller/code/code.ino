@@ -17,19 +17,25 @@ float rpm = 0;
 
 
 void setup() {
+  
+  Serial.begin(115200);
+  
   pinMode(highSensor, INPUT);
   pinMode(lowSensor, INPUT);
   pinMode(pulse, OUTPUT);
   pinMode(dir, OUTPUT);
   
   attachInterrupt(0, setLastPulse, RISING);
+
+  delay(1000);
+  
 }
 
 
 void loop() {
 
   /* Works out the motor's current RPM */ 
-  if (millis() - timeAtPulse >= 3000) {
+  if (millis() - timeAtPulse >= 1000) {
     rpm = 0;
   }
   else {
@@ -41,7 +47,7 @@ void loop() {
   if (rpm == 0) {
     shifting = false;
   }
-  else if (rpm < 2500) {
+  else if (rpm < 2000) {
     shifting = true;
     digitalWrite(dir, HIGH);
   }
@@ -78,10 +84,10 @@ void loop() {
     digitalWrite(pulse, LOW);
     delayMicroseconds(stepDel);
 
-    //Serial.print("Shifting gear: True");
+    Serial.print("Shifting gear: True");
   }
   else {
-    //Serial.print("Shifting gear: False");
+    Serial.print("Shifting gear: False");
   }
 
   Serial.println(" RPM: "+String(rpm));
@@ -91,6 +97,8 @@ void loop() {
 
 /* ISR for setting the time which the hall effect sensor last got a pulse */
 void setLastPulse() {
+  
   timeAtPrevPulse = timeAtPulse;
   timeAtPulse = millis();
+  
 }
