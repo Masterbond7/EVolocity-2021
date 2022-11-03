@@ -1,6 +1,6 @@
 /*
 
-Gearbox controller code
+Paddle shift gearbox controller
 
  */
 

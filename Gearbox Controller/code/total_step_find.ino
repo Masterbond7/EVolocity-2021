@@ -1,3 +1,9 @@
+/*
+
+Total steps between limit switches finder
+
+ */
+
 int
 highSensor = 7, lowSensor = 4, pulse = 11, dir = 10, stepDel = 10, stepCount = 0;
 

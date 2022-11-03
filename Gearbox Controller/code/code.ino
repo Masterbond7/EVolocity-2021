@@ -1,6 +1,6 @@
 /*
 
-Gearbox controller code
+Main gearbox controller
 
  */
 
