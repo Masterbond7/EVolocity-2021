@@ -75,7 +75,7 @@ void loop() {
   
 
   /* If it safe to spin the motor, it will pulse the stepper motor to turn it */
-  if (shifting && dirHighAllowed && dirLowAllowed) {
+  if (shifting && dirHighAllowed && dirLowAllowed && rpm > 0) {
     digitalWrite(pulse, HIGH);
     delayMicroseconds(stepDel);
     digitalWrite(pulse, LOW);
