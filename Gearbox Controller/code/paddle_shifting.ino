@@ -60,12 +60,12 @@ void loop() {
   if (stepsNet < 0) {
     shifting = true;
     digitalWrite(dir, LOW);
-    stepsLow -= 1;
+    stepsLow--;
   }
   else if (stepsNet > 0) {
     shifting = true;
     digitalWrite(dir, HIGH);
-    stepsHigh -= 1;
+    stepsHigh--;
   }
   else {
     shifting = false;
