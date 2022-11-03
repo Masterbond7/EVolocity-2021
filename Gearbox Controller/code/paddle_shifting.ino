@@ -62,7 +62,7 @@ void loop() {
     digitalWrite(dir, LOW);
     stepsLow -= 1;
   }
-  elif (stepsNet > 0) {
+  else if (stepsNet > 0) {
     shifting = true;
     digitalWrite(dir, HIGH);
     stepsHigh -= 1;
