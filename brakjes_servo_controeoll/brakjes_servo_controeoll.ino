@@ -1,18 +1,21 @@
 #include <Servo.h>
 
-Servo steeringServo;
+Servo servo1;
+Servo servo2;
 int desired_angle, current_angle, increment_angle, increment_delay, delta_angle, remainder_angle, sensor_val;
 
 void setup() {
     Serial.begin(9600);
 
     increment_angle = 5;
-    increment_delay = 30;
+    increment_delay = 50;
     current_angle = 69;
     desired_angle = 69;
 
-    steeringServo.attach(2);
-    steeringServo.write(current_angle);
+    servo1.attach(2);
+    servo1.write(current_angle);
+    servo2.attach(3);
+    servo2.write(current_angle);
 
     pinMode(A7, INPUT);
 }
@@ -37,12 +40,14 @@ void loop() {
     if (remainder_angle) {
         if (delta_angle > 0) {current_angle += remainder_angle;}
         if (delta_angle < 0) {current_angle -= remainder_angle;}
-        steeringServo.write(current_angle);
+        servo1.write(current_angle);
+        servo2.write(current_angle);
         delay(int(increment_delay*(float(remainder_angle)/5.0f)));
     }
 
     if (current_angle > desired_angle) { current_angle -= increment_angle; }
     else if (current_angle < desired_angle) { current_angle += increment_angle; }
-    steeringServo.write(current_angle);
+    servo1.write(current_angle);
+    servo2.write(current_angle);
     delay(increment_delay);
 }
