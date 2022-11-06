@@ -1,6 +1,6 @@
 /*
 
-Main gearbox controller
+Paddle shift gearbox controller
 
  */
 
@@ -8,7 +8,8 @@ volatile unsigned long long int
 timeAtPulse = 0, timeAtPrevPulse = 0;
 
 int
-highSensor = 7, lowSensor = 4, pulse = 11, dir = 10, stepDel = 10;
+highSensor = 7, lowSensor = 4, pulse = 11, dir = 10, stepDel = 10, 
+stepsPerGear = /* total steps/number of gears */;
 
 bool
 dirHighAllowed, dirLowAllowed, shifting;
@@ -17,7 +18,7 @@ float rpm = 0;
 
 
 void setup() {
-  
+
   Serial.begin(115200);
   
   pinMode(highSensor, INPUT);
@@ -41,41 +42,40 @@ void loop() {
   else {
     rpm = 1000/float(timeAtPulse - timeAtPrevPulse)*60; // Works out RPM based on time 
   }                                                     // between magnet pulses
- 
 
-  /* Determines if and what direction the motor should spin */
-  if (rpm > 0 && rpm <= 1500) {
-    shifting = true;
-    digitalWrite(dir, HIGH);
+
+  /* Gets shifting paddle input */
+  if (/* Left paddle */) {
+    stepsLow += stepsPerGear;
   }
-  else if (rpm >= 2500) {
+
+  if (/* Right paddle */) {
+    stepsHigh += stepsPerGear;
+  }
+
+  /* Determines net steps */
+  stepsNet = stepsHigh - stepsLow;
+
+  /* Based on the net steps; determines how the stepper motor should spin */
+  if (stepsNet < 0) {
     shifting = true;
     digitalWrite(dir, LOW);
+    stepsLow--;
+  }
+  else if (stepsNet > 0) {
+    shifting = true;
+    digitalWrite(dir, HIGH);
+    stepsHigh--;
   }
   else {
     shifting = false;
+    stepsLow = 0;
+    stepsHigh = 0;
   }
   
 
-  /* Determines whether the stepper motor is allowed to spin HIGH */
-  if (digitalRead(highSensor) == HIGH && digitalRead(dir) == HIGH) {
-    dirHighAllowed = false;
-  }
-  else {
-    dirHighAllowed = true;
-  }
-
-  /* Determines whether the stepper motor is allowed to spin LOW */
-  if (digitalRead(lowSensor) == HIGH && digitalRead(dir) == LOW) {
-    dirLowAllowed = false;
-  }
-  else {
-    dirLowAllowed = true;
-  }
-
-  
   /* If it safe to spin the motor, it will pulse the stepper motor to turn it */
-  if (shifting && dirHighAllowed && dirLowAllowed) {
+  if (shifting && dirHighAllowed && dirLowAllowed && rpm > 0) {
     digitalWrite(pulse, HIGH);
     delayMicroseconds(stepDel);
     digitalWrite(pulse, LOW);
